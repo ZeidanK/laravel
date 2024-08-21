@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AboutUsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('about-laravel', AboutUsController::class);  
+
+
 Route::get('about-us', function () {
     
     return 'about-us';
@@ -24,3 +29,4 @@ Route::get('about-us', function () {
 Route::get('/dbconn',function(){
     return view('dbconn');
 });
+ 

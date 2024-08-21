@@ -37,7 +37,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
         });
     }
-
+    protected $namespace='App\\Http\\Controllers';
     /**
      * Configure the rate limiters for the application.
      *
