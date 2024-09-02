@@ -22,9 +22,14 @@ Route::get('about-us', function () {
     return 'about-us';
 });
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    // $user= \App\Models\User::create([
+    //     'name' => 'John Doe',
+    //     'email' => 'test@email.com',
+    //     'password' => \Illuminate\Support\Facades\Hash::make('password')]);
+    // return user;
+    dump(\App\Models\User::all());
+});
 
 Route::get('/dbconn',function(){
     return view('dbconn');

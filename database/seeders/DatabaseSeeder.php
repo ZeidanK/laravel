@@ -20,5 +20,15 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+        \App\Models\Guest::factory()->create([
+            'guest_slug' => 'test-guest',
+            'event_id' => 1,
+            'first_name' => 'Test',
+            'last_name' => 'Guest',
+            'phone_number' => '123-456-7890',
+            'is_attending' => 1,
+            'notes' => 'Test notes',
+            'open_link' => 'test-link'
+        ]);
     }
 }

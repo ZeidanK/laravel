@@ -64,3 +64,17 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+ 
+
+ ## Da3wah  
+
+some extra links for help 
+building a crud application in laravel:
+https://www.youtube.com/watch?v=iIazajpaOSw&list=PLcjapmjyX17hJZ-shzRMxTus0aMw0EVVB&index=4
+
+ Setup VSCode for Laravel Development:
+https://www.youtube.com/watch?v=OBJCZ_mYc8A&list=LL&index=2
+
+ How to Get Started with Laravel | Install and Setup Laravel with XAMPP, Composer, and VS Code:
+ https://www.youtube.com/watch?v=EVLNtj-VbX0&list=LL&index=1
+ 
