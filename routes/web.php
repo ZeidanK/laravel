@@ -28,9 +28,22 @@ Route::get('/', function () {
     //     'email' => 'test@email.com',
     //     'password' => \Illuminate\Support\Facades\Hash::make('password')]);
     // return user;
-    dump(\App\Models\User::all());
+    $Guest = \App\Models\Guest::create([
+        'guest_slug' => 'test-guest',
+        'event_id' => 1,
+        'first_name' => 'Test',
+        'last_name' => 'Guest',
+        'phone_number' => '123-456-7890',
+        'is_attending' => True,
+        'notes' => 'Test notes',
+        'open_link' => TRUE
+    ]);
+    return $Guest;
+    //dump(\App\Models\User::all());
 });
-
+Route::get('/admin_dash', function () {
+    return view('admin_dash');
+});
 Route::get('/dbconn',function(){
     return view('dbconn');
 });
