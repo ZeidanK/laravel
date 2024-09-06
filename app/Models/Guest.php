@@ -10,6 +10,11 @@ class Guest extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'guest_slug',
         'event_id',
@@ -20,4 +25,11 @@ class Guest extends Model
         'notes',
         'open_link'
     ];
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
+
+
 }

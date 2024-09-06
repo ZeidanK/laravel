@@ -149,10 +149,39 @@
                     echo "<p>$user->name</p>";
                 }
 
+                
 
 
 
-?>
+
+            ?>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Password</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
+                        <th>phone</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($users as $user)
+                        <tr>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->password }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>{{ $user->role }}</td>
+                            <td>{{ $user->created_at }}</td>
+                            <td>{{ $user->updated_at }}</td>
+                            <td>{{ $user->phone_number }}</td>
+
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     
         <!-- Team Content -->
@@ -589,6 +618,35 @@
         <div id="projects-content" class="content-section hidden">
             <h1>Projects Content</h1>
             <!-- Your projects content here -->
+
+            <?php
+            DB::table('events')->get();
+            $events = DB::table('events')->get();
+            echo "<p>Events:</p>";
+            ?>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>User ID</th>
+                        <th>Event date</th>
+                        <th>Location</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($events as $event)
+                    <tr>
+                        <td>{{ $event->id }}</td>
+                        <td>{{ $event->event_slug}}</td>
+                        <td>{{ $event->event_date }}</td>
+                        <td>{{ $event->event_location }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+
+            
         </div>
     
         <!-- Calendar Content -->

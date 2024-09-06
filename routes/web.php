@@ -1,8 +1,9 @@
 <?php
-
+// namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AboutUsController;
-
+// use App\Http\Controllers\AboutUsController;
+ use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,38 +14,47 @@ use App\Http\Controllers\AboutUsController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/dashboard', [DashboardController::class, '__invoke']);
 
-Route::get('about-laravel', AboutUsController::class);  
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/', [AuthController::class, 'show']);
+
+Route::get('/seed', [DashboardController::class, 'seed']);
 
 
-Route::get('about-us', function () {
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Route::get('about-laravel', AboutUsController::class);  
+
+
+// Route::get('about-us', function () {
     
-    return 'about-us';
-});
+//     return 'about-us';
+// });
 
-Route::get('/', function () {
-    // $user= \App\Models\User::create([
-    //     'name' => 'John Doe',
-    //     'email' => 'test@email.com',
-    //     'password' => \Illuminate\Support\Facades\Hash::make('password')]);
-    // return user;
-    $Guest = \App\Models\Guest::create([
-        'guest_slug' => 'test-guest',
-        'event_id' => 1,
-        'first_name' => 'Test',
-        'last_name' => 'Guest',
-        'phone_number' => '123-456-7890',
-        'is_attending' => True,
-        'notes' => 'Test notes',
-        'open_link' => TRUE
-    ]);
-    return $Guest;
-    //dump(\App\Models\User::all());
-});
-Route::get('/admin_dash', function () {
-    return view('admin_dash');
-});
-Route::get('/dbconn',function(){
-    return view('dbconn');
-});
+// Route::get('/welcome', function () {
+//     return view('welcome');
+// });
+// Route::get('/admin_dash', function () {
+//     return view('admin_dash');
+// });
+// Route::get('/dbconn',function(){
+//     return view('dbconn');
+// });
  
+
+//Auth::routes();
+
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
