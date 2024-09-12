@@ -39,4 +39,24 @@ class EventServiceProvider extends ServiceProvider
     {
         return false;
     }
+     /**
+     * Display the specified event.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        // Retrieve the event by its ID
+        $event = Event::find($id);
+
+        // Check if the event exists
+        if (!$event) {
+            return response()->json(['message' => 'Event not found'], 404);
+        }
+
+        // Return the event
+        return view('events.show', compact('event'));
+    }
+
 }

@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 class GuestController extends Controller
 {
     //
+    public function show(){
+        return view('event_test');
+    }
     public function list()
     {
-        return view('guests');
+        return view('event_test');
     }
 
     public function create()
@@ -32,9 +35,28 @@ class GuestController extends Controller
         return redirect('/guests');
     }
 
+
+
     public function edit($id)
     {
         $guest = \App\Models\Guest::find($id);
         return view('edit-guest', ['guest' => $guest]);
+    }
+    public function rsvp(Request $request, $id)
+    {
+        // Retrieve the guest by ID
+        $guest = Guest::find($id);
+
+        // Check if the guest exists
+        if (!$guest) {
+            return response()->json(['message' => 'Guest not found'], 404);
+        }
+
+        // Update the guest's RSVP status
+        $guest->is_attending = $request->is_attending;
+        $guest->save();
+
+        // Redirect or return a response
+        return redirect('/guests')->with('status', 'RSVP updated successfully!');
     }
 }
