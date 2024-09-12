@@ -24,6 +24,35 @@ class Event extends Model
         'event_description',
         'event_image',
         'event_link',
-        'event_status'];
+        'event_status',
+        'rsvp'
+    ];
+
+        static public function createTestEvent()
+    {
+        $event = new \App\Models\Event();
+        $event->event_slug = 'test-event';
+        $event->event_name = 'Test Event';
+        $event->event_date = '2021-12-31';
+        $event->event_time = '12:00:00';
+        $event->event_location = 'Test Location';
+        $event->event_description = 'Test Description';
+        $event->rsvp=true;
+        //$event->save();
+        return $event;
+        //return redirect('/events');
+    }
+    public function guests()
+    {
+        return $this->hasMany(Guest::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function getEventDateAttribute($value)
+    {
+        return date('m/d/Y', strtotime($value));
+    }
 
 }

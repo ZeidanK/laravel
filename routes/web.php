@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\AboutUsController;
  use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GuestController;
+use App\Http\Controllers\EventController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +24,11 @@ Route::get('/', [AuthController::class, 'show']);
 
 Route::get('/seed', [DashboardController::class, 'seed']);
 
+Route::get('/guest', [GuestController::class, 'show']);
+
+Route::get('/events/{id}', [EventController::class, 'show']);
+
+Route::post('/events/{id}/update', [EventController::class, 'update'])->name('events.update');
 
 
 
@@ -35,12 +42,11 @@ Route::get('/seed', [DashboardController::class, 'seed']);
 
 
 
-
-// Route::get('about-laravel', AboutUsController::class);  
+// Route::get('about-laravel', AboutUsController::class);
 
 
 // Route::get('about-us', function () {
-    
+
 //     return 'about-us';
 // });
 
@@ -53,7 +59,7 @@ Route::get('/seed', [DashboardController::class, 'seed']);
 // Route::get('/dbconn',function(){
 //     return view('dbconn');
 // });
- 
+
 
 //Auth::routes();
 

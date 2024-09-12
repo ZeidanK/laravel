@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Event;
 
 class EventController extends Controller
 {
@@ -10,6 +11,9 @@ class EventController extends Controller
     public function list()
     {
         return view('events');
+    }
+    public function show(){
+        return view('event_test');
     }
     public function create()
     {
@@ -27,6 +31,37 @@ class EventController extends Controller
         $event->event_description = $request->event_description;
         $event->save();
         return redirect('/events');
+    }
+    public function update(Request $request, $id)
+    {
+        // Validate the request
+        $request->validate([
+            'eventImage' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Increase max size to 5MB
+            'bgColor' => 'required|string',
+        ]);
+
+        // Find the event by ID
+        $event = Event::find($id);
+
+        // Check if the event exists
+        if (!$event) {
+            return redirect()->back()->with('error', 'Event not found');
+        }
+
+        // Handle the file upload
+        if ($request->hasFile('eventImage')) {
+            $image = $request->file('eventImage');
+            $imageBlob = file_get_contents($image->getRealPath());
+            $event->event_image = $imageBlob;
+        }
+
+        // Update the background color
+        $event->background_color = $request->input('bgColor');
+
+        // Save the event
+        $event->save();
+
+        return redirect()->back()->with('success', 'Event updated successfully');
     }
 
 }
