@@ -83,12 +83,15 @@ $guest= App\Models\Guest::find(1);
     <p>{{ $user->name }}</p>
     <img src="data:image/jpeg;base64,{{ base64_encode($event->event_image) }}" alt="Wedding Image">
 
-    <div>
-        <button class="button" onclick="rsvp('yes')">Yes</button>
-        <button class="button" onclick="rsvp('no')">No</button>
-    </div>
-
+    @if ($event->rsvp)
+        <div>
+            <button class="button" onclick="rsvp('yes')">Yes</button>
+            <button class="button" onclick="rsvp('no')">No</button>
+        </div>
+    @endif
+    @if ($event->time)
     <div id="countdown"></div>
+    @endif
 </body>
 <?php echo "$event->event_date"; ?>
      <!-- Include the JavaScript file -->
@@ -149,7 +152,7 @@ $guest= App\Models\Guest::find(1);
             </div>
             <div>
                 <label for="bgColor">Background Color:</label>
-                <input type="color" id="bgColor" name="bgColor" value="#ffffff">
+                <input type="color" id="bgColor" name="bgColor" value="{{ $event->background_color }}">
             </div>
             <button type="submit" class="button">Save Changes</button>
         </form>
