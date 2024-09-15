@@ -42,6 +42,10 @@ return new class extends Migration
             $table->boolean('link')->default(false);
             $table->binary('event_image')->nullable();
             $table->string('background_color')->nullable();
+            $table->boolean('countdown')->default(false);
+            $table->string('countdown_date')->nullable();
+            $table->string('countdown_option')->default('simple');
+            $table->dateTime('countdown_time')->nullable();
 
 
             $table->unsignedBigInteger('user_id');
