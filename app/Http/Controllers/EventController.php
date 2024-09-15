@@ -61,6 +61,7 @@ class EventController extends Controller
         // Update the event fields
         $event->rsvp = $request->has('rsvpOption') ? 1 : 0;
         $event->location = $request->has('mapOption') ? 1 : 0;
+        $event->countdown = $request->has('countdownOption') ? 1 : 0;
         //$event->date=$request->input('timeoption');
         // Save the event
         $event->save();

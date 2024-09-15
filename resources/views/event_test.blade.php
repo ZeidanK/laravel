@@ -13,7 +13,7 @@ $guest->event = App\Models\Event::createTestEvent();
 //$event = App\Models\Event::createTestEvent();
 $event = App\Models\Event::find(1);
 $user = App\Models\User::find($event->user_id);
-$guest= App\Models\Guest::find(1);
+$guest= App\Models\Guest::find(2);
 ?>
 
 
@@ -89,46 +89,76 @@ $guest= App\Models\Guest::find(1);
             <button class="button" onclick="rsvp('no')">No</button>
         </div>
     @endif
-    @if ($event->time)
-    <div id="countdown"></div>
-    @endif
-</body>
-<?php echo "$event->event_date"; ?>
-     <!-- Include the JavaScript file -->
-     {{-- <script src="{{ asset('js/event.js') }}"></script> --}}
+    @if ($event->countdown)
+    {{-- <script src="{{ asset('js/countdown.js') }}" defer></script> --}}
 
+    <div id="countdown">
 
+        <div id="hello-world-display"></div>
+        <div id="countdown-display"></div>
+
+    <!-- Include the JavaScript file -->
+    <script src="{{ asset('js/countdown.js') }}"></script>
     <script>
-        // Set the guest name and couple name
-        document.getElementById('guestName').textContent = 'John';
-        document.getElementById('coupleName').textContent = 'Alice and Bob\'s';
+        document.addEventListener('DOMContentLoaded', function() {
+            // Call the printHelloWorld function with an integer input
+            printHelloWorld(42); // Replace 42 with any integer you want to pass
+        });
+    </script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Call the printHelloWorld function with an integer input
+        displayCountdown(42,{{$event->countdown_time}}); // Replace 42 with any integer you want to pass
+    });
+</script>
+    </div>
+    @endif
 
-        // RSVP function
-        function rsvp(response) {
-            alert('You have responded: ' + response);
-        }
-
-        // Countdown timer
-        const weddingDate = new Date('2023-12-31T00:00:00').getTime();
-
-        const timer = setInterval(function() {
-            const now = new Date().getTime();
-            const distance = weddingDate - now;
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById('countdown').innerHTML = `Wedding in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-
-            if (distance < 0) {
-                clearInterval(timer);
-                document.getElementById('countdown').innerHTML = 'The wedding has started!';
-            }
-        }, 1000);
+     <!-- Pass data to JavaScript -->
+     <script>
+        window.eventData = {
+            countdownOption: "simple",
+            eventDate: "30:12:2024",
+            eventTime: "00:00:00"
+        };
     </script>
 
+    <!-- Include the JavaScript file -->
+    <script src="{{ asset('js/countdown.js') }}"></script>
+
+<!-- Element to display the countdown -->
+<div id="countdown-display"></div>
+
+<!-- Include the JavaScript file -->
+<script src="{{ asset('js/countdown.js') }}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Example date and time in ISO format
+        const randomDate = "{{$event->countdown_time}}"; // Replace with your desired date and time
+        const input = "Event"; // Replace with your desired input
+
+        // Call the displayCountdown function with the random date and input
+        displayCountdown(input, randomDate);
+    });
+</script>
+
+
+
+
+
+</body>
+<?php echo "$event->event_date"; ?>
+
+
+{{-- this will be the toggle eddit options that include
+1) RSVP
+2) map
+3) update mssage
+4) change background color
+5) change font?
+6) change invite image
+7) different options for rsvp buttons and the options to change the colors of the bottons
+8)  --}}
 <body>
     <div>
         <button class="button" onclick="toggleEditOptions()">Edit</button>
@@ -149,6 +179,10 @@ $guest= App\Models\Guest::find(1);
             <div>
                 <label for="mapOption">Include Map:</label>
                 <input type="checkbox" id="mapOption" name="mapOption">
+            </div>
+            <div>
+                <label for="countdownOption">CountDown:</label>
+                <input type="checkbox" id="countdonwOption" name="countdownOption" checked>
             </div>
             <div>
                 <label for="bgColor">Background Color:</label>
