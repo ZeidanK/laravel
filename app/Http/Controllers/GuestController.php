@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Guest;
 
 class GuestController extends Controller
 {
@@ -22,7 +23,7 @@ class GuestController extends Controller
 
     public function store(Request $request)
     {
-        $guest = new \App\Models\Guest();
+        $guest = new Guest();
         $guest->guest_slug = $request->guest_slug;
         $guest->event_id = $request->event_id;
         $guest->first_name = $request->first_name;
@@ -39,7 +40,7 @@ class GuestController extends Controller
 
     public function edit($id)
     {
-        $guest = \App\Models\Guest::find($id);
+        $guest = Guest::find($id);
         return view('edit-guest', ['guest' => $guest]);
     }
     public function rsvp(Request $request, $id)

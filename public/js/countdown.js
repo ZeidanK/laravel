@@ -15,7 +15,10 @@ function printHelloWorld(input) {
 function displayCountdown(input, date_time) {
     const displayElement = document.getElementById('countdown-display');
     const targetDate = new Date(date_time.replace(' ', 'T')).toISOString();
-    countdown1(targetDate, 'html', input);
+    if(input==='simple'){
+        countdown(targetDate, 'html', input);
+    }else{
+    countdown1(targetDate, 'html', input);}
 }
 
 function countdown(targetDate, format, input) {
@@ -61,11 +64,11 @@ function countdown1(targetDate,format,input){
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
         displayElement.innerHTML = `
-            <div>${days}<span>Days</span></div>
-            <div>${hours}<span>Hours</span></div>
-            <div>${minutes}<span>Minutes</span></div>
-            <div>${seconds}<span>Seconds</span></div>
-            <div>${input}</div>
+            <div style="font-weight: bold; color: green; font-size: 1.5em;">${days}<span> Days</span></div>
+            <div style="font-weight: bold; color: green; font-size: 1.5em;">${hours}<span> Hours</span></div>
+            <div style="font-weight: bold; color: green; font-size: 1.5em;">${minutes}<span> Minutes</span></div>
+            <div style="font-weight: bold; color: green; font-size: 1.5em;">${seconds}<span> Seconds</span></div>
+            <div style="font-weight: bold; color: green; font-size: 1.5em;">${input}</div>
         `;
     }, 1000);
 }

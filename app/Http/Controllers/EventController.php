@@ -22,7 +22,7 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
-        $event = new \App\Models\Event();
+        $event = new Event();
         $event->event_slug = $request->event_slug;
         $event->event_name = $request->event_name;
         $event->event_date = $request->event_date;
@@ -62,6 +62,7 @@ class EventController extends Controller
         $event->rsvp = $request->has('rsvpOption') ? 1 : 0;
         $event->location = $request->has('mapOption') ? 1 : 0;
         $event->countdown = $request->has('countdownOption') ? 1 : 0;
+        $event->countdown_option = $request->input('countdownSelect');
         //$event->date=$request->input('timeoption');
         // Save the event
         $event->save();
