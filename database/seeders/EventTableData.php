@@ -27,16 +27,6 @@ class EventTableData extends Seeder
             'event_image' => 'default.jpg'
         ]);
 
-        DB::table('guests')->insert([
-            'guest_slug' => 'test-guest1',
-            'event_id' => 1,
-            'first_name' => 'Test1',
-            'last_name' => 'Guest1',
-            'phone_number' => '123-456-7890',
-            'is_attending' => 1,
-            'open_link' => 0,
-            'user_id' =>1
 
-        ]);
     }
 }

@@ -62,6 +62,7 @@ return new class extends Migration
             $table->index(['user_id', 'event_slug']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
+        DB::statement('ALTER TABLE events MODIFY event_image MEDIUMBLOB');
     }
 
     /**

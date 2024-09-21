@@ -54,5 +54,20 @@ class Event extends Model
     {
         return date('m/d/Y', strtotime($value));
     }
-
+    public function getNumberOfGuestsAttending()
+    {
+        return $this->guests->where('is_attending', 1)->count();
+    }
+    public function getNumberOfGuestsNotAttending()
+    {
+        return $this->guests->where('is_attending', 0)->count();
+    }
+    public function getNumberOfGuestsNotResponded()
+    {
+        return $this->guests->where('is_attending', null)->count();
+    }
+    public function getNumberOfGuests(): mixed
+    {
+        return $this->guests->count();
+    }
 }

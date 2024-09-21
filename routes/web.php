@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\EventController;
+use App\Http\Livewire\Counter;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,6 +31,7 @@ Route::get('/events/{id}', [EventController::class, 'show']);
 
 Route::post('/events/{id}/update', [EventController::class, 'update'])->name('events.update');
 
+//Route::get('/counter', [Counter::class, 'render']);
 
 
 
@@ -56,9 +58,9 @@ Route::post('/events/{id}/update', [EventController::class, 'update'])->name('ev
 // Route::get('/admin_dash', function () {
 //     return view('admin_dash');
 // });
-// Route::get('/dbconn',function(){
-//     return view('dbconn');
-// });
+Route::get('/dbconn',function(){
+    return view('dbconn');
+});
 
 
 //Auth::routes();

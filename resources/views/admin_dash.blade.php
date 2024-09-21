@@ -40,7 +40,7 @@
                   <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
                 </svg>
               </button>
-  
+
               <!-- Profile dropdown -->
               <div class="relative ml-3">
                 <div>
@@ -50,10 +50,10 @@
                     <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
                   </button>
                 </div>
-  
+
                 <!--
                   Dropdown menu, show/hide based on menu state.
-  
+
                   Entering: "transition ease-out duration-100"
                     From: "transform opacity-0 scale-95"
                     To: "transform opacity-100 scale-100"
@@ -87,7 +87,7 @@
           </div>
         </div>
       </div>
-  
+
       <!-- Mobile menu, show/hide based on menu state. -->
       <div class="md:hidden" id="mobile-menu">
         <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
@@ -123,7 +123,7 @@
         </div>
       </div>
     </nav>
-  
+
     <header class="bg-white shadow">
       <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <h1 class="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
@@ -149,7 +149,7 @@
                     echo "<p>$user->name</p>";
                 }
 
-                
+
 
 
 
@@ -183,7 +183,7 @@
                 </tbody>
             </table>
         </div>
-    
+
         <!-- Team Content -->
         <div id="team-content" class="content-section hidden">
             <h1>Team Content</h1>
@@ -613,7 +613,7 @@
 
             <!-- Your team content here -->
         </div>
-    
+
         <!-- Projects Content -->
         <div id="projects-content" class="content-section hidden">
             <h1>Projects Content</h1>
@@ -646,15 +646,47 @@
             </table>
 
 
-            
+
         </div>
-    
+
         <!-- Calendar Content -->
         <div id="calendar-content" class="content-section hidden">
             <h1>Calendar Content</h1>
+            @inject('event', 'App\Models\Event')
+            <?php
+
+use App\Models\Event;
+
+            //$events = DB::table('events')->get(where ('user_id', '=', 1));
+            $events = Event::where('user_id', 1)->get();
+            echo "<p>Events:</p>";
+            ?>
+            @foreach($events as $event)
+            <tr>
+                <td>{{ $event->id }}</td>
+                <td>{{ $event->event_slug }}</td>
+                <td>{{ $event->event_date }}</td>
+                <td>{{ $event->event_location }}</td>
+                <td>{{ $event->getNumberOfGuests() }}</td>
+                <td>{{ $event->getNumberOfGuestsNotAttending() }}</td>
+                @foreach($event->guests as $guest)
+                <td>{{ $guest->first_name }}</td>
+                <td>{{ $guest->email }}</td>
+                <td>{{ $guest->phone_number }}</td>
+                <td>{{ $guest->attending }}</td>
+                @endforeach
+
+            </tr>
+            @endforeach
+
+            <livewire:guest-table-display />
+            @yield('content')
+            @livewireStyles
+            @livewireScripts
+
             <!-- Your calendar content here -->
         </div>
-    
+
         <!-- Reports Content -->
         <div id="reports-content" class="content-section hidden">
             <h1>Reports Content</h1>
@@ -663,7 +695,7 @@
     </div>
     </main>
   </div>
-  
+
 </html>
 
 

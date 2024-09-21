@@ -18,7 +18,7 @@ class EventController extends Controller
     public function create()
     {
         return view('create_event');
-    }
+        }
 
     public function store(Request $request)
     {
@@ -68,6 +68,11 @@ class EventController extends Controller
         $event->save();
 
         return redirect()->back()->with('success', 'Event updated successfully');
+    }
+    public function getNumberOfGuests()
+    {
+        $event = Event::find(1);
+        return $event->getNumberOfGuests();
     }
 
 }
