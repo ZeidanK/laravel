@@ -16,7 +16,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-
+        // $this->call([
+        //     EventTableDataSeeder::class,
+        //     UserSeeder::class,
+        //     GuestSeeder::class,
+        // ]);
 
         // \App\Models\User::factory(10)->create();
 

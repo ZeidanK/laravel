@@ -1,8 +1,6 @@
-<!-- resources/views/livewire/guest-table-display.blade.php -->
 
 <div>
-    {{-- Do your work, then step back. --}}
-</div>
+
 
 <!-- Search Input Field -->
 <div class="mb-4">
@@ -10,58 +8,78 @@
 </div>
 
 <!-- Sort Button -->
-<div class="mb-4">
-    <button wire:click="sortTable" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">ترتيب</button>
-</div>
+
 <!-- Checkbox for filtering guests who clicked the link -->
-<div class="mb-4">
-    <label class="inline-flex items-center">
-        <input type="checkbox" wire:model="filterClickedYes" class="form-checkbox" checked>
-        <span class="ml-2">نعم</span>
-    </label>
-    <label class="inline-flex items-center ml-4">
-        <input type="checkbox" wire:model="filterClickedNo" class="form-checkbox" checked>
-        <span class="ml-2">لا</span>
-    </label>
+<div class="mb-4 border p-4 rounded">
+    <h3 class="font-bold mb-2">تصفية الضيوف حسب النقر على الرابط</h3>
+    <div>
+        <label class="inline-flex items-center">
+            <input type="checkbox" wire:model="filterClickedYes" class="form-checkbox">
+            <span class="ml-2">نعم</span>
+        </label>
+        <label class="inline-flex items-center ml-4">
+            <input type="checkbox" wire:model="filterClickedNo" class="form-checkbox">
+            <span class="ml-2">لا</span>
+        </label>
+    </div>
+
+    <h3 class="font-bold mb-2 mt-4">تصفية الضيوف حسب تأكيد الحضور</h3>
+    <div>
+        <label class="inline-flex items-center">
+            <input type="checkbox" wire:model="filterAttending" class="form-checkbox">
+            <span class="ml-2">حاضر</span>
+        </label>
+        <label class="inline-flex items-center ml-4">
+            <input type="checkbox" wire:model="filterNotAttending" class="form-checkbox">
+            <span class="ml-2">غير حاضر</span>
+        </label>
+        <label class="inline-flex items-center ml-4">
+            <input type="checkbox" wire:model="filterNoResponse" class="form-checkbox">
+            <span class="ml-2">لم يجب</span>
+        </label>
+    </div>
 </div>
 <table class="table-auto w-full">
     <thead>
         <tr>
-            <th class="px-4 py-2">الاسم</th>
-            <th class="px-4 py-2">العائلة</th>
-            <th class="px-4 py-2">رقم الهاتف</th>
-            <th class="px-4 py-2">تأكيد الحضور</th>
-            <th class="px-4 py-2">الحذف</th>
-            <th class="px-4 py-2">نقر الرابط</th>
+            <th class="px-4 py-2 cursor-pointer" wire:click="sortBy('first_name')">الاسم</th>
+            <th class="px-4 py-2 cursor-pointer" wire:click="sortBy('last_name')">العائلة</th>
+            <th class="px-4 py-2 cursor-pointer" wire:click="sortBy('phone_number')">رقم الهاتف</th>
+            <th class="px-4 py-2 cursor-pointer" wire:click="sortBy('is_attending')">تأكيد الحضور</th>
+
+            <th class="px-4 py-2 cursor-pointer" wire:click="sortBy('open_link')">نقر الرابط</th>
             <th class="px-4 py-2">التعديل</th>
         </tr>
     </thead>
     <tbody>
         @foreach($guests as $guest)
-            <tr>
-                <td class="border px-4 py-2">{{ $guest->first_name }}</td>
-                <td class="border px-4 py-2">{{ $guest->last_name }}</td>
-                <td class="border px-4 py-2">{{ $guest->phone_number }}</td>
-                <td class="border px-4 py-2">
-                    @if($guest->is_attending == 1)
-                        حاضر
-                    @elseif($guest->is_attending == 0)
-                        غير حاضر
-                    @else
-                        لم يجب
-                    @endif
-                </td>
-                <td class="border px-4 py-2">
-                    <button wire:click="delete({{ $guest->id }})" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">حذف</button>
-                </td>
-                <td class="border px-4 py-2">
-                    @if($guest->open_link == 1)
-                        قام بالنقر
-                    @else
-                        لم يقم بالنقر
-                    @endif
-                </td>
-            </tr>
+            @if(($filterClickedYes && $guest->open_link == 1) || ($filterClickedNo && $guest->open_link == 0)|| ($filterAttending && $guest->is_attending == 1) || ($filterNotAttending && $guest->is_attending == 0) || ($filterNoResponse && $guest->is_attending == null))
+                <tr>
+                    <td class="border px-4 py-2">{{ $guest->first_name }}</td>
+                    <td class="border px-4 py-2">{{ $guest->last_name }}</td>
+                    <td class="border px-4 py-2">{{ $guest->phone_number }}</td>
+                    <td class="border px-4 py-2">
+                        @if($guest->is_attending == 1)
+                            حاضر
+                        @elseif($guest->is_attending == 0)
+                            غير حاضر
+                        @else
+                            لم يجب
+                        @endif
+                    </td>
+
+                    <td class="border px-4 py-2">
+                        @if($guest->open_link == 1)
+                            قام بالنقر
+                        @else
+                            لم يقم بالنقر
+                        @endif
+                    </td>
+                    <td class="border px-4 py-2">
+                        <button wire:click="edit({{ $guest->id }})" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">تعديل</button>
+                    </td>
+                </tr>
+            @endif
         @endforeach
     </tbody>
 </table>
@@ -73,3 +91,4 @@
         });
     });
 </script>
+</div>

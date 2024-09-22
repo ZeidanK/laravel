@@ -661,28 +661,21 @@ use App\Models\Event;
             $events = Event::where('user_id', 1)->get();
             echo "<p>Events:</p>";
             ?>
-            @foreach($events as $event)
-            <tr>
-                <td>{{ $event->id }}</td>
-                <td>{{ $event->event_slug }}</td>
-                <td>{{ $event->event_date }}</td>
-                <td>{{ $event->event_location }}</td>
-                <td>{{ $event->getNumberOfGuests() }}</td>
-                <td>{{ $event->getNumberOfGuestsNotAttending() }}</td>
-                @foreach($event->guests as $guest)
-                <td>{{ $guest->first_name }}</td>
-                <td>{{ $guest->email }}</td>
-                <td>{{ $guest->phone_number }}</td>
-                <td>{{ $guest->attending }}</td>
-                @endforeach
 
-            </tr>
-            @endforeach
+            <body>
+            @livewireScripts
 
             <livewire:guest-table-display />
-            @yield('content')
             @livewireStyles
-            @livewireScripts
+
+            </body>
+            {{-- @extends('layouts.app')
+
+            @section('content')
+                <h1>Admin Dashboard</h1>
+                @livewire('guest-table-display')
+            @endsection --}}
+
 
             <!-- Your calendar content here -->
         </div>
