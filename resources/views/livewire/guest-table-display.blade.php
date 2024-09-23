@@ -11,34 +11,46 @@
 
 <!-- Checkbox for filtering guests who clicked the link -->
 <div class="mb-4 border p-4 rounded">
-    <h3 class="font-bold mb-2">تصفية الضيوف حسب النقر على الرابط</h3>
-    <div>
-        <label class="inline-flex items-center">
-            <input type="checkbox" wire:model="filterClickedYes" class="form-checkbox">
-            <span class="ml-2">نعم</span>
-        </label>
-        <label class="inline-flex items-center ml-4">
-            <input type="checkbox" wire:model="filterClickedNo" class="form-checkbox">
-            <span class="ml-2">لا</span>
-        </label>
+    <div class="flex justify-between">
+        <div class="w-1/2 pr-2">
+            <h3 class="font-bold mb-2">تصفية الضيوف حسب النقر على الرابط</h3>
+            <div>
+                <label class="inline-flex items-center">
+                    <input type="checkbox" wire:model="filterClickedYes" class="form-checkbox">
+                    <span class="ml-2">نعم</span>
+                </label>
+                <label class="inline-flex items-center ml-4">
+                    <input type="checkbox" wire:model="filterClickedNo" class="form-checkbox">
+                    <span class="ml-2">لا</span>
+                </label>
+            </div>
+        </div>
+        <div class="w-1/2 pl-2">
+            <h3 class="font-bold mb-2">تصفية الضيوف حسب تأكيد الحضور</h3>
+            <div>
+                <label class="inline-flex items-center">
+                    <input type="checkbox" wire:model="filterAttending" class="form-checkbox">
+                    <span class="ml-2">حاضر</span>
+                </label>
+                <label class="inline-flex items-center ml-4">
+                    <input type="checkbox" wire:model="filterNotAttending" class="form-checkbox">
+                    <span class="ml-2">غير حاضر</span>
+                </label>
+                <label class="inline-flex items-center ml-4">
+                    <input type="checkbox" wire:model="filterNoResponse" class="form-checkbox">
+                    <span class="ml-2">لم يجب</span>
+                </label>
+            </div>
+        </div>
+        <div class="w-1/3 pl-2">
+            <h3 class="font-bold mb-2">تحميل ملف Excel</h3>
+            <button wire:click="downloadFullExcel" class="bg-blue-300 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mb-2">تحميل الملف الكامل</button>
+            <button wire:click="downloadFilteredExcel" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded">تحميل الملف المصفى</button>
+        </div>
     </div>
 
-    <h3 class="font-bold mb-2 mt-4">تصفية الضيوف حسب تأكيد الحضور</h3>
-    <div>
-        <label class="inline-flex items-center">
-            <input type="checkbox" wire:model="filterAttending" class="form-checkbox">
-            <span class="ml-2">حاضر</span>
-        </label>
-        <label class="inline-flex items-center ml-4">
-            <input type="checkbox" wire:model="filterNotAttending" class="form-checkbox">
-            <span class="ml-2">غير حاضر</span>
-        </label>
-        <label class="inline-flex items-center ml-4">
-            <input type="checkbox" wire:model="filterNoResponse" class="form-checkbox">
-            <span class="ml-2">لم يجب</span>
-        </label>
-    </div>
 </div>
+
 <table class="table-auto w-full">
     <thead>
         <tr>
@@ -58,8 +70,10 @@
                     <td class="border px-4 py-2">{{ $guest->first_name }}</td>
                     <td class="border px-4 py-2">{{ $guest->last_name }}</td>
                     <td class="border px-4 py-2">{{ $guest->phone_number }}</td>
-                    <td class="border px-4 py-2">
-                        @if($guest->is_attending == 1)
+                    <td class="border px-4 py-2 {{ $guest->is_attending == 1 ? 'bg-green-100' : ($guest->is_attending == 0 ? 'bg-red-100' : '') }}">
+                        @if(is_null($guest->is_attending))
+                        لم يجب
+                        @elseif($guest->is_attending == 1)
                             حاضر
                         @elseif($guest->is_attending == 0)
                             غير حاضر
@@ -67,8 +81,7 @@
                             لم يجب
                         @endif
                     </td>
-
-                    <td class="border px-4 py-2">
+                    <td class="border px-4 py-2 {{ $guest->open_link == 1 ? 'bg-green-100' : 'bg-red-100' }}">
                         @if($guest->open_link == 1)
                             قام بالنقر
                         @else

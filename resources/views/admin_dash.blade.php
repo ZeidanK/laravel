@@ -651,7 +651,7 @@
 
         <!-- Calendar Content -->
         <div id="calendar-content" class="content-section hidden">
-            <h1>Calendar Content</h1>
+
             @inject('event', 'App\Models\Event')
             <?php
 
@@ -659,23 +659,34 @@ use App\Models\Event;
 
             //$events = DB::table('events')->get(where ('user_id', '=', 1));
             $events = Event::where('user_id', 1)->get();
-            echo "<p>Events:</p>";
+
+            // echo "$events";
             ?>
 
-            <body>
+            {{-- <body>
             @livewireScripts
+            <livewire:guest-pie-chart :events="$events" />
+            @stack('scripts')
 
-            <livewire:guest-table-display />
+
+            <livewire:guest-table-display :events="$events" />
             @livewireStyles
 
-            </body>
+            </body> --}}
             {{-- @extends('layouts.app')
 
             @section('content')
                 <h1>Admin Dashboard</h1>
                 @livewire('guest-table-display')
             @endsection --}}
+            @inject('event', 'App\Models\Event')
 
+
+            @livewireStyles
+    <livewire:guest-pie-chart :events="$events" />
+    <livewire:guest-table-display :events="$events" />
+    @livewireScripts
+    @stack('scripts')
 
             <!-- Your calendar content here -->
         </div>
