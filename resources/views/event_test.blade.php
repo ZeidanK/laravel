@@ -5,15 +5,16 @@
 </head>
 <body>
 <?php
-use App\Models\Guest;
-use App\Models\Event;
+// use App\Models\Guest;
+// use App\Models\Event;
+// use App\Models\User;
 
-$guest = App\Models\Guest::createTestGuest();
-$guest->event = App\Models\Event::createTestEvent();
+$guest = Guest::createTestGuest();
+$guest->event = Event::createTestEvent();
 //$event = App\Models\Event::createTestEvent();
-$event = App\Models\Event::find(1);
-$user = App\Models\User::find($event->user_id);
-$guest= App\Models\Guest::find(2);
+$event = Event::find(1);
+$user = User::find($event->user_id);
+$guest= Guest::find(2);
 ?>
 
 
