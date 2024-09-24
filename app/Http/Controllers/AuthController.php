@@ -30,4 +30,9 @@ class AuthController extends Controller
         echo "login";
 
     }
+
+    public function logout(){
+        auth()->logout();
+        return redirect('/');
+    }
 }

@@ -74,4 +74,12 @@ class Event extends Model
     {
         return $this->id;
     }
+    public function getNumberOfGuestsOpenLink(): mixed
+    {
+        return $this->guests->where('open_link', 1)->count();
+    }
+    public function getNumberOfGuestsNotOpenLink(): mixed
+    {
+        return $this->guests->where('open_link', 0)->count();
+    }
 }

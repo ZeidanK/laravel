@@ -13,6 +13,8 @@ class GuestPieChart extends Component
     public $numberOfGuestsNotResponded;
     public $numberOfGuestOpenLink;
     public $numberOfGuests;
+    public $numberOfGuestsOpenLink;
+    public $numberOfGuestsNotOpenLink;
 
     public function mount($events)
     {
@@ -22,6 +24,8 @@ class GuestPieChart extends Component
         $this->numberOfGuestsNotAttending =  $this->events[0]->getNumberOfGuestsNotAttending();
         $this->numberOfGuestsNotResponded = $this->events[0]->getNumberOfGuestsNotResponded();
         $this->numberOfGuests = $this->events[0]->getNumberOfGuests();
+        $this->numberOfGuestsOpenLink = $this->events[0]->getNumberOfGuestsOpenLink();
+        $this->numberOfGuestsNotOpenLink = $this->events[0]->getNumberOfGuestsNotOpenLink();
     }
 
 
