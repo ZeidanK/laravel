@@ -20,8 +20,17 @@ class UserTableData extends Seeder
         //
         DB::table('users')->insert([
 
-            'name' => 'Test User',
+            'name' => 'karim zeidan',
             'email' => 'karemziedan@gmail.com',
+            'password' => Hash::make('password'),
+            'phone_number' => '123-456-7890',
+            'role' => 'admin'
+        ]);
+        DB::table('users')->insert([
+
+
+            'name' => 'Test client1',
+            'email' => 'user1@hotmail.com',
             'password' => Hash::make('password'),
             'phone_number' => '123-456-7890',
             'role' => 'user'
@@ -29,8 +38,8 @@ class UserTableData extends Seeder
         DB::table('users')->insert([
 
 
-            'name' => 'Test Admin',
-            'email' => 'user1@hotmail.com',
+            'name' => 'Test client2',
+            'email' => 'user2@hotmail.com',
             'password' => Hash::make('password'),
             'phone_number' => '123-456-7890',
             'role' => 'user'

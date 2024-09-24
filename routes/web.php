@@ -21,6 +21,8 @@ Route::get('/dashboard', [DashboardController::class, '__invoke']);
 
 Route::post('/login', [AuthController::class, 'login']);
 
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
 Route::get('/', [AuthController::class, 'show']);
 
 Route::get('/seed', [DashboardController::class, 'seed']);

@@ -54,6 +54,7 @@
 <table class="table-auto w-full">
     <thead>
         <tr>
+            <th class="px-4 py-2">الرقم</th>
             <th class="px-4 py-2 cursor-pointer" wire:click="sortBy('first_name')">الاسم</th>
             <th class="px-4 py-2 cursor-pointer" wire:click="sortBy('last_name')">العائلة</th>
             <th class="px-4 py-2 cursor-pointer" wire:click="sortBy('phone_number')">رقم الهاتف</th>
@@ -62,11 +63,11 @@
             <th class="px-4 py-2 cursor-pointer" wire:click="sortBy('open_link')">نقر الرابط</th>
             <th class="px-4 py-2">التعديل</th>
         </tr>
-    </thead>
     <tbody>
-        @foreach($guests as $guest)
+        @foreach($guests as $index => $guest)
             @if(($filterClickedYes && $guest->open_link == 1) || ($filterClickedNo && $guest->open_link == 0)|| ($filterAttending && $guest->is_attending == 1) || ($filterNotAttending && $guest->is_attending == 0) || ($filterNoResponse && $guest->is_attending == null))
                 <tr>
+                    <td class="border px-4 py-2">{{ $index + 1 }}</td>
                     <td class="border px-4 py-2">{{ $guest->first_name }}</td>
                     <td class="border px-4 py-2">{{ $guest->last_name }}</td>
                     <td class="border px-4 py-2">{{ $guest->phone_number }}</td>

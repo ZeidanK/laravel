@@ -23,6 +23,17 @@ class EventTableData extends Seeder
             'event_time' => '12:00:00',
             'event_location' => 'Test Location',
             'event_description' => 'Test Description',
+            'user_id' => 2,
+            'event_image' => 'default.jpg'
+        ]);
+        DB::table('events')->insert([
+
+            'event_slug' => 'test-event77',
+            'event_name' => 'Test Event 2',
+            'event_date' => '2021-12-31',
+            'event_time' => '12:00:00',
+            'event_location' => 'Test Location',
+            'event_description' => 'Test Description',
             'user_id' => 1,
             'event_image' => 'default.jpg'
         ]);

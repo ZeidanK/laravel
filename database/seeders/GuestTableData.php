@@ -17,7 +17,7 @@ class GuestTableData extends Seeder
         //
         DB::table('guests')->insert([
             'guest_slug' => 'test-guest2',
-            'event_id' => 1,
+            'event_id' => 2,
             'first_name' => 'فريد',
             'last_name' => 'نجم',
             'phone_number' => '123-456-7890',
@@ -27,7 +27,7 @@ class GuestTableData extends Seeder
         ]);
         DB::table('guests')->insert([
             'guest_slug' => 'test-guest3',
-            'event_id' => 1,
+            'event_id' => 2,
             'first_name' => 'اعتماد',
             'last_name' => 'العوضي',
             'phone_number' => '123-456-7890',
@@ -44,7 +44,7 @@ class GuestTableData extends Seeder
             'phone_number' => '123-456-7890',
             'is_attending' => 1,
             'open_link' => 0,
-            'user_id' => 1
+            'user_id' => 2
         ]);
         DB::table('guests')->insert([
             'guest_slug' => 'test-guest5',
@@ -54,17 +54,36 @@ class GuestTableData extends Seeder
             'phone_number' => '123-456-7890',
             'is_attending' => 1,
             'open_link' => 0,
-            'user_id' => 1
+            'user_id' => 2
         ]);
         DB::table('guests')->insert([
             'guest_slug' => 'test-guest6',
             'event_id' => 1,
-            'first_name' => 'ؤثث',
-            'last_name' => 'تثث',
+            'first_name' => 'يوسف',
+            'last_name' => 'لاشين',
             'phone_number' => '123-456-7890',
-            'is_attending' => 1,
+
             'open_link' => 0,
-            'user_id' => 1
+            'user_id' => 2
+        ]);
+        DB::table('guests')->insert([
+            'guest_slug' => 'test-guest7',
+            'event_id' => 1,
+            'first_name' => 'بيبي',
+            'last_name' => 'نجم',
+            'phone_number' => '123-456-7890',
+            'is_attending' => 0,
+            'open_link' => 1,
+            'user_id' => 2
+        ]);
+        DB::table('guests')->insert([
+            'guest_slug' => 'test-guest8',
+            'event_id' => 1,
+            'first_name' => 'ناصر',
+            'last_name' => 'العوضي',
+            'phone_number' => '123-456-7890',
+            'open_link' => 1,
+            'user_id' => 2
         ]);
     }
 }
