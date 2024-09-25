@@ -13,9 +13,9 @@ class AuthController extends Controller
     }
 
     public function login(){
-        
-            
-        
+
+
+
         validator(request()->all(), [
             'email' => 'required|email',
             'password' => 'required'
@@ -29,5 +29,10 @@ class AuthController extends Controller
         ]);
         echo "login";
 
+    }
+
+    public function logout(){
+        auth()->logout();
+        return redirect('/');
     }
 }

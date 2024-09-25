@@ -44,7 +44,7 @@ class Event extends Model
     }
     public function guests()
     {
-        return $this->hasMany(Guest::class);
+        return $this->hasMany(Guest::class, 'event_id', 'id');
     }
     public function user()
     {
@@ -54,5 +54,32 @@ class Event extends Model
     {
         return date('m/d/Y', strtotime($value));
     }
-
+    public function getNumberOfGuestsAttending()
+    {
+        return $this->guests->where('is_attending', 1)->count();
+    }
+    public function getNumberOfGuestsNotAttending()
+    {
+        return $this->guests->where('is_attending', '=', 0)->count()-$this->getNumberOfGuestsNotResponded();
+    }
+    public function getNumberOfGuestsNotResponded()
+{
+    return $this->guests->whereNull('is_attending')->count();
+}
+    public function getNumberOfGuests(): mixed
+    {
+        return $this->guests->count();
+    }
+    public function getEventId(): mixed
+    {
+        return $this->id;
+    }
+    public function getNumberOfGuestsOpenLink(): mixed
+    {
+        return $this->guests->where('open_link', 1)->count();
+    }
+    public function getNumberOfGuestsNotOpenLink(): mixed
+    {
+        return $this->guests->where('open_link', 0)->count();
+    }
 }
