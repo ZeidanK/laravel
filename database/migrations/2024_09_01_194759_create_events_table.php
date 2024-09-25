@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('event_slug');
             $table->string('event_date')->nullable();
             $table->string('event_time')->nullable();
-            $table->string('event_location')->nullable();
+            $table->text('event_location')->nullable();
             $table->string('event_description')->nullable();
             $table->string('event_image_path')->default('default.jpg');
             $table->string('event_link')->nullable();
@@ -41,11 +41,14 @@ return new class extends Migration
             $table->boolean('image')->default(false);
             $table->boolean('link')->default(false);
             $table->binary('event_image')->nullable();
-            $table->string('background_color')->nullable();
+            $table->string('background_color')->nullable()->default('#FFFFFF');
             $table->boolean('countdown')->default(false);
             $table->string('countdown_date')->nullable();
             $table->string('countdown_option')->default('simple');
             $table->dateTime('countdown_time')->nullable();
+            
+            $table->boolean('Gif')->default(false);
+            $table->string('GifSelect')->default('NoGif');
 
 
             $table->unsignedBigInteger('user_id');
@@ -62,8 +65,9 @@ return new class extends Migration
             $table->index(['user_id', 'event_slug']);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
-        DB::statement('ALTER TABLE events MODIFY event_image MEDIUMBLOB');
+        DB::statement('ALTER TABLE events MODIFY event_image LONGBLOB');
     }
+    
 
     /**
      * Reverse the migrations.

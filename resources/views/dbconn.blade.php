@@ -5,7 +5,7 @@
 </head>
 <body>
     <h1>DB Connection Test</h1>
-    <livewire:hello-world />
+
     @php
         try {
             $pdo = DB::connection()->getPdo();
@@ -15,12 +15,4 @@
         }
     @endphp
 </body>
-<body>
-    <div>
-        <livewire:hello-world />
-        <livewire:counter />
-    </div>
-</body>
 </html>
-@livewireScripts
-@livewireStyles

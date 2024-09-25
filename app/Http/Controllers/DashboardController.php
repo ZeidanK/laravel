@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Http\Request;
-use App\Models\Event;
 
 class DashboardController extends Controller
 {
@@ -19,5 +18,5 @@ class DashboardController extends Controller
         ]);
     }
 
-
+    
 }

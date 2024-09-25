@@ -18,7 +18,7 @@ class EventController extends Controller
     public function create()
     {
         return view('create_event');
-        }
+    }
 
     public function store(Request $request)
     {
@@ -38,6 +38,8 @@ class EventController extends Controller
         $request->validate([
             'eventImage' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:5120', // Increase max size to 5MB
             'bgColor' => 'required|string',
+            'description' => 'required|string',
+
         ]);
 
         // Find the event by ID
@@ -63,16 +65,13 @@ class EventController extends Controller
         $event->location = $request->has('mapOption') ? 1 : 0;
         $event->countdown = $request->has('countdownOption') ? 1 : 0;
         $event->countdown_option = $request->input('countdownSelect');
+        $event->event_description = $request->input('description');
+        $event->GifSelect = $request->input('GifSelect');
         //$event->date=$request->input('timeoption');
         // Save the event
         $event->save();
 
         return redirect()->back()->with('success', 'Event updated successfully');
-    }
-    public function getNumberOfGuests()
-    {
-        $event = Event::find(1);
-        return $event->getNumberOfGuests();
     }
 
 }

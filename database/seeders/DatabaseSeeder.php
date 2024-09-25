@@ -15,12 +15,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-
-        // $this->call([
-        //     EventTableDataSeeder::class,
-        //     UserSeeder::class,
-        //     GuestSeeder::class,
-        // ]);
+        
+        // UserTableData::run(" php artisan DB:seed --class=UserTableData");
+        
+        // EventTableData::run(" php artisan DB:seed --class=EventTableData")  ; 
+        // GuestTableData::run(" php artisan DB:seed --class=GuestTableData");
 
         // \App\Models\User::factory(10)->create();
 
