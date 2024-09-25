@@ -34,6 +34,18 @@ Route::get('/events/{id}', [EventController::class, 'show']);
 Route::post('/events/{id}/update', [EventController::class, 'update'])->name('events.update');
 
 //Route::get('/counter', [Counter::class, 'render']);
+Route::get('/{word}/{id}', function ($word, $id) {
+    if (preg_match('/\p{Arabic}/u', $word)) {
+        // Check if the ID is valid (you can add your own validation logic here)
+        if (is_numeric($id)) {
+            return "The word is in Arabic and the ID is valid: $id";
+        } else {
+            return "The word is in Arabic but the ID is not valid.";
+        }
+    } else {
+        return "The word is not in Arabic.";
+    }
+});
 
 
 

@@ -1,58 +1,59 @@
-<div style="display: flex;">
+<div style="display: flex; border: 1px solid #ccc; padding: 10px; max-width: 100%; max-hight: 70%">
     <div style="flex: 1;">
-        <canvas id="myPieChart1" width="100" height="100"></canvas> <!-- Adjusted width and height -->
+        <canvas id="myPieChart1" width="80" height="80"></canvas> <!-- Adjusted width and height -->
     </div>
     <div style="flex: 1; padding: 20px;">
         <div style="border: 1px solid #ccc; padding: 10px; border-radius: 5px; background-color: #f9f9f9;">
             <table style="width: 100%; border-collapse: collapse;">
                 <thead>
                     <tr>
-                        <th style="border: 1px solid #ccc; padding: 8px; text-align: left;">الوصف</th>
-                        <th style="border: 1px solid #ccc; padding: 8px; text-align: right;">القيمة</th>
+                        <th style="border: 1px solid #ccc; padding: 8px; text-align: center; font-size: 1.1em;">القيمة</th>
+                        <th style="border: 1px solid #ccc; padding: 8px; text-align: center; font-size: 1.1em;">الوصف</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td style="border: 1px solid #ccc; padding: 8px;">الحضور</td>
-                        <td style="border: 1px solid #ccc; padding: 8px; text-align: right;">
-                            {{ $numberOfGuestsAttending }} ({{ number_format(($numberOfGuestsAttending / $numberOfGuests) * 100, 2) }}%)
+                        <td style="border: 1px solid #ccc; padding: 8px; text-align: center; font-size: 1.1em;">
+                            {{ $numberOfGuestsAttending }} ({{ number_format(($numberOfGuestsAttending / $numberOfGuests) * 100, 0) }}%)
                         </td>
+                        <td style="border: 1px solid #ccc; padding: 8px; text-align: right; font-size: 1.1em;">الحضور</td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #ccc; padding: 8px;">غير الحضور</td>
-                        <td style="border: 1px solid #ccc; padding: 8px; text-align: right;">
-                            {{ $numberOfGuestsNotAttending }} ({{ number_format(($numberOfGuestsNotAttending / $numberOfGuests) * 100, 2) }}%)
+                        <td style="border: 1px solid #ccc; padding: 8px; text-align: center; font-size: 1.1em;">
+                            {{ $numberOfGuestsNotAttending }} ({{ number_format(($numberOfGuestsNotAttending / $numberOfGuests) * 100, 0) }}%)
                         </td>
+                        <td style="border: 1px solid #ccc; padding: 8px; text-align: right; font-size: 1.1em;">غير الحضور</td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #ccc; padding: 8px;">لم يرد</td>
-                        <td style="border: 1px solid #ccc; padding: 8px; text-align: right;">
-                            {{ $numberOfGuestsNotResponded }} ({{ number_format(($numberOfGuestsNotResponded / $numberOfGuests) * 100, 2) }}%)
+                        <td style="border: 1px solid #ccc; padding: 8px; text-align: center; font-size: 1.1em;">
+                            {{ $numberOfGuestsNotResponded }} ({{ number_format(($numberOfGuestsNotResponded / $numberOfGuests) * 100, 0) }}%)
                         </td>
+                        <td style="border: 1px solid #ccc; padding: 8px; text-align: right; font-size: 1.1em;">لم يرد</td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #ccc; padding: 8px;">إجمالي الضيوف</td>
-                        <td style="border: 1px solid #ccc; padding: 8px; text-align: right;">
+                        <td style="border: 1px solid #ccc; padding: 8px; text-align: center; font-size: 1.1em;">
                             {{ $numberOfGuests }}
                         </td>
+                        <td style="border: 1px solid #ccc; padding: 8px; text-align: right; font-size: 1.1em;">إجمالي الضيوف</td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #ccc; padding: 8px;">فتح الرابط</td>
-                        <td style="border: 1px solid #ccc; padding: 8px; text-align: right;">
-                            {{ $numberOfGuestsOpenLink }} ({{ number_format(($numberOfGuestsOpenLink / $numberOfGuests) * 100, 2) }}%)
+                        <td style="border: 1px solid #ccc; padding: 8px; text-align: center; font-size: 1.1em;">
+                            {{ $numberOfGuestsOpenLink }} ({{ number_format(($numberOfGuestsOpenLink / $numberOfGuests) * 100, 0) }}%)
                         </td>
+                        <td style="border: 1px solid #ccc; padding: 8px; text-align: right; font-size: 1.1em;">فتح الرابط</td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid #ccc; padding: 8px;">لم يفتح الرابط</td>
-                        <td style="border: 1px solid #ccc; padding: 8px; text-align: right;">
-                            {{ $numberOfGuestsNotOpenLink }} ({{ number_format(($numberOfGuestsNotOpenLink / $numberOfGuests) * 100, 2) }}%)
+                        <td style="border: 1px solid #ccc; padding: 8px; text-align: center; font-size: 1.1em;">
+                            {{ $numberOfGuestsNotOpenLink }} ({{ number_format(($numberOfGuestsNotOpenLink / $numberOfGuests) * 100, 0) }}%)
                         </td>
+                        <td style="border: 1px solid #ccc; padding: 8px; text-align: right; font-size: 1.1em;">لم يفتح الرابط</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    </div>
+
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -68,7 +69,7 @@
                 labels: chartData.map(item => item.label),
                 datasets: [{
                     data: chartData.map(item => item.value),
-                    backgroundColor: ['#36A2EB', '#FF6384', '#FFCE56'], // Add colors as needed
+                    backgroundColor: ['#008000','#FF0000',  '#0000FF'], // Green for attending, Red for not attending, Blue for no response
                 }]
             },
             options: {

@@ -19,6 +19,7 @@
 <head>
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.2/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="h-full">
 <div class="min-h-full">
@@ -220,7 +221,7 @@
         <!-- Team Content -->
         <div id="team-content" class="content-section hidden">
             <h1>contact us</h1>
-
+            <livewire:hello-world />
             <livewire:contact-request />
 
             <!-- Your team content here -->
@@ -280,10 +281,13 @@ use Illuminate\Support\Facades\Auth;
             @inject('event', 'App\Models\Event')
 
             @livewireStyles
-            <div>
+            <button id="toggle-pie-chart" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4">
+                عرض الرسم البياني الدائري
+            </button>
+            <div id="pie-chart-container">
                 <livewire:guest-pie-chart :events="$events" />
+            </div>
 
-            <div>
                 <livewire:guest-table-display :events="$events" />
             </div>
             @livewireScripts
@@ -300,8 +304,11 @@ use Illuminate\Support\Facades\Auth;
 
         <!-- Contact Request Content -->
         <div id="contact-request-content" class="content-section hidden">
-            <h1>Contact Request Content</h1>
+
             <!-- Your contact request content here -->
+
+            <livewire:import-guests-file :event="$events[0]"/>
+
             <livewire:contact-request-table-display />
 
 
@@ -310,10 +317,21 @@ use Illuminate\Support\Facades\Auth;
     </div>
     </main>
   </div>
-
+<div id="bottom-header-container" class="bg-white shadow-lg">
+    <livewire:bottom-header />
+</div>
 </body>
 </html>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggleButton = document.getElementById('toggle-pie-chart');
+        const pieChartContainer = document.getElementById('pie-chart-container');
 
+        toggleButton.addEventListener('click', function () {
+            pieChartContainer.classList.toggle('hidden');
+        });
+    });
+</script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

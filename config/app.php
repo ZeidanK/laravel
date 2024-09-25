@@ -195,6 +195,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        //for the excel thingy
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
     ],
 
@@ -214,6 +216,8 @@ return [
         'Guest' => App\Models\Guest::class,
         'Event' => App\Models\Event::class,
         'User' => App\Models\User::class,
+        //for the excel thingy
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ])->toArray(),
 
 ];

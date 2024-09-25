@@ -52,5 +52,37 @@ class ContactRequest extends Model
         return $query->oldest();
     }
 
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name', 'like', "%$search%")
+            ->orWhere('email', 'like', "%$search%")
+            ->orWhere('phone_number', 'like', "%$search%")
+            ->orWhere('message', 'like', "%$search%");
+    }
+
+    public function sort($query, $sort)
+    {
+        if ($sort === 'latest') {
+            return $query->latest();
+        } elseif ($sort === 'oldest') {
+            return $query->oldest();
+        } else {
+            return $query;
+        }
+    }
+
+    public function filterQuery($query, $search, $sort)
+    {
+        return $query->search($search)->sort($sort);
+    }
+
+    public function filterQueryNotResolved($query){
+        return $query->unresolved();
+    }
+
+    public function filterQueryResolved($query){
+        return $query->resolved();
+    }
+
 
 }
