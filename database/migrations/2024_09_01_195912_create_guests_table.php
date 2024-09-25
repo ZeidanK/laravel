@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone_number');
-            $table->boolean('is_attending')->nullable()->default(null);
+            $table->boolean('is_attending')->default(false);
             $table->text('notes')->nullable();
             $table->boolean('open_link')->default(0);
             $table->unique(['event_id', 'guest_slug']);
@@ -39,7 +39,7 @@ return new class extends Migration
             // Foreign key definition
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
-
+            
         });
     }
 

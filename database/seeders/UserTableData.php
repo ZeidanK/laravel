@@ -20,26 +20,25 @@ class UserTableData extends Seeder
         //
         DB::table('users')->insert([
 
-            'name' => 'karim zeidan',
+            'name' => 'Test User',
             'email' => 'karemziedan@gmail.com',
-            'password' => Hash::make('password'),
-            'phone_number' => '123-456-7890',
-            'role' => 'admin'
-        ]);
-        DB::table('users')->insert([
-
-
-            'name' => 'Test client1',
-            'email' => 'user1@hotmail.com',
             'password' => Hash::make('password'),
             'phone_number' => '123-456-7890',
             'role' => 'user'
         ]);
         DB::table('users')->insert([
 
+            'name' => 'Test User',
+            'email' => 'sari70779@gmail.com',
+            'password' => Hash::make('password1'),
+            'phone_number' => '123-456-7890',
+            'role' => 'user'
+        ]);
+        DB::table('users')->insert([
 
-            'name' => 'Test client2',
-            'email' => 'user2@hotmail.com',
+
+            'name' => 'Test Admin',
+            'email' => 'user1@hotmail.com',
             'password' => Hash::make('password'),
             'phone_number' => '123-456-7890',
             'role' => 'user'
