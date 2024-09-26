@@ -47,4 +47,5 @@ class Guest extends Model
         //return redirect('/guests');
     }
 
+
 }

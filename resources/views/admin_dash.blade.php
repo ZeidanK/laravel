@@ -306,12 +306,13 @@ use Illuminate\Support\Facades\Auth;
         <div id="contact-request-content" class="content-section hidden">
 
             <!-- Your contact request content here -->
-
+            @livewireStyles
             <livewire:import-guests-file :event="$events[0]"/>
 
             <livewire:contact-request-table-display />
 
 
+            @livewireScripts
 
         </div>
     </div>

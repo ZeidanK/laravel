@@ -37,9 +37,9 @@ Route::get('/events/{id}', [EventController::class, 'show']);
 
 Route::post('/events/{id}/update', [EventController::class, 'update'])->name('events.update');
 
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-
-
+Route::post('/dashboard', [GuestController::class, 'importExcelData']);
 
 
 

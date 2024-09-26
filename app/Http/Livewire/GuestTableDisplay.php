@@ -12,7 +12,6 @@ use App\Models\Event;
 use Illuminate\Database\Eloquent\Collection;
 
 
-
 class GuestTableDisplay extends Component
 {
     public $guests;
@@ -138,33 +137,10 @@ class GuestTableDisplay extends Component
         $this->sortField = $field;
         $this->filterGuests();
     }
-
-    public function downloadFilteredExcel() //filtering still not working
+    public function downloadFilteredExcel()
     {
-        $query = Guest::query();
+        $guests = $this->guests; // Use the currently displayed guests
 
-        if ($this->search) {
-            $query->where(function($q) {
-                $q->where('first_name', 'like', '%' . $this->search . '%')
-                  ->orWhere('last_name', 'like', '%' . $this->search . '%')
-                  ->orWhere('phone_number', 'like', '%' . $this->search . '%');
-            });
-        }
-        if ($this->filterAttending || $this->filterNotAttending || $this->filterNoResponse) {
-            $query->where(function($q) {
-                if ($this->filterAttending) {
-                    $q->where('is_attending', 1);
-                }
-                if ($this->filterNotAttending) {
-                    $q->where('is_attending', 0);
-                }
-                if ($this->filterNoResponse) {
-                    $q->whereNull('is_attending');
-                }
-            });
-        }
-
-        $guests = $query->get();
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -194,37 +170,43 @@ class GuestTableDisplay extends Component
         return Response::download($temp_file, $fileName)->deleteFileAfterSend(true);
     }
 
-
     public function downloadFullExcel()
     {
-        $guests = Guest::all();
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        if ($this->events->isNotEmpty()) {
+            $event = $this->events->first();
+            $guests = Guest::where('event_id', $event->id)->get();
 
-        // Set the header
-        $sheet->setCellValue('A1', 'First Name');
-        $sheet->setCellValue('B1', 'Last Name');
-        $sheet->setCellValue('C1', 'Phone Number');
-        $sheet->setCellValue('D1', 'Is Attending');
-        $sheet->setCellValue('E1', 'Open Link');
+            $spreadsheet = new Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
 
-        // Populate the data
-        $row = 2;
-        foreach ($guests as $guest) {
-            $sheet->setCellValue('A' . $row, $guest->first_name);
-            $sheet->setCellValue('B' . $row, $guest->last_name);
-            $sheet->setCellValue('C' . $row, $guest->phone_number);
-            $sheet->setCellValue('D' . $row, $guest->is_attending ? 'Yes' : 'No');
-            $sheet->setCellValue('E' . $row, $guest->open_link ? 'Yes' : 'No');
-            $row++;
+            // Set the header
+            $sheet->setCellValue('A1', 'First Name');
+            $sheet->setCellValue('B1', 'Last Name');
+            $sheet->setCellValue('C1', 'Phone Number');
+            $sheet->setCellValue('D1', 'Is Attending');
+            $sheet->setCellValue('E1', 'Open Link');
+
+            // Populate the data
+            $row = 2;
+            foreach ($guests as $guest) {
+                $sheet->setCellValue('A' . $row, $guest->first_name);
+                $sheet->setCellValue('B' . $row, $guest->last_name);
+                $sheet->setCellValue('C' . $row, $guest->phone_number);
+                $sheet->setCellValue('D' . $row, $guest->is_attending ? 'Yes' : 'No');
+                $sheet->setCellValue('E' . $row, $guest->open_link ? 'Yes' : 'No');
+                $row++;
+            }
+
+            $writer = new Xlsx($spreadsheet);
+            $fileName = 'guests.xlsx';
+            $temp_file = tempnam(sys_get_temp_dir(), $fileName);
+            $writer->save($temp_file);
+
+            return Response::download($temp_file, $fileName)->deleteFileAfterSend(true);
+        } else {
+            session()->flash('message', 'No events found.');
+            return redirect()->back();
         }
-
-        $writer = new Xlsx($spreadsheet);
-        $fileName = 'guests.xlsx';
-        $temp_file = tempnam(sys_get_temp_dir(), $fileName);
-        $writer->save($temp_file);
-
-        return Response::download($temp_file, $fileName)->deleteFileAfterSend(true);
     }
 
 

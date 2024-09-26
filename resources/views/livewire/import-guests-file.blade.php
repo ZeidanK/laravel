@@ -1,3 +1,4 @@
+<div>
 {{-- The Master doesn't talk, he acts. --}}
 <div class="container mt-5">
     <div class="row ">
@@ -7,7 +8,19 @@
                     <h4>Import Guest File</h4>
                 </div>
                 <div class="card-body">
-                    <form wire:submit.prevent="importFile" method="post" enctype="multipart/form-data">
+                    @if (session()->has('message'))
+                        <div class="alert alert-success">
+                            {{ session('message') }}
+                        </div>
+                    @endif
+
+                    @if (session()->has('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
+                    <form wire:submit.prevent="importfile" method="post" >
                         @csrf
                         <div class="input-group">
 
@@ -20,6 +33,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 
