@@ -7,13 +7,13 @@
 <?php
 use App\Models\Guest;
 use App\Models\Event;
-
+//$user =auth->user();
 $guest = App\Models\Guest::createTestGuest();
 $guest->event = App\Models\Event::createTestEvent();
 //$event = App\Models\Event::createTestEvent();
 $event = App\Models\Event::find(1);
-$user = App\Models\User::find($event->user_id);
-$guest= App\Models\Guest::find(3);
+$user = App\Models\User::find(1);
+$guest= App\Models\Guest::first();
 ?>
 
 
@@ -37,9 +37,9 @@ $guest= App\Models\Guest::find(3);
     <style>
          body {
     background-size: cover; /* Ensures the image covers the whole background */
-    background-color: #f3f4e7; 
+    background-color: #f3f4e7;
     color: black; /* Change this to your preferred text color */
-    
+
     /* font-family: 'Cairo', sans-serif; Use the Google Font */
     /* font-family: 'Noto Nastaliq Urdu', serif; Use the Noto Nastaliq Urdu Font */
     font-family: 'Amiri', serif; /* Use the Amiri Font */
@@ -76,7 +76,7 @@ $guest= App\Models\Guest::find(3);
 }
 .button-wrapper {
     margin-top: 20px;
-    
+
     background-color: transparent; /* Make the button wrapper background transparent */
 }
 
@@ -86,7 +86,7 @@ $guest= App\Models\Guest::find(3);
             text-align: center;
             align-items: center; /* Vertically center the countdown */
   justify-content: center; /* Horizontally center the countdown */
-            
+
         }
         @keyframes fadeIn { /* Define the fade in animation */
             0% {opacity: 0;}
@@ -124,7 +124,7 @@ $guest= App\Models\Guest::find(3);
             height: 100%;
             object-fit: cover;
             border-radius: 35px;
-            
+
         }
         .button {
             display: inline-block;
@@ -151,7 +151,7 @@ $guest= App\Models\Guest::find(3);
             font-size: 24px;
             margin-top: 20px;
         }
-       
+
     </style>
 </head>
 <body >
@@ -165,7 +165,7 @@ $guest= App\Models\Guest::find(3);
     <p>{{ $user->name }}</p>
 
     @if ($event->image)
-    
+
     <img src="data:image/jpeg;base64,{{ base64_encode($event->event_image) }}" alt="Wedding Image">
     </div>
     @endif
@@ -207,7 +207,7 @@ $guest= App\Models\Guest::find(3);
 <!-- display the map if location is set -->
 @if ($event->location)
     <iframe
-      
+
     width="100%"
         height="300"
         frameborder="0" style="border:0"
@@ -265,7 +265,7 @@ $guest= App\Models\Guest::find(3);
                 <label for="countdownOption">CountDown:</label>
                 <input type="checkbox" id="countdownOption" name="countdownOption" @if ($event->countdown) checked @endif>
             </div>
-            
+
             <div id="countdownSelectContainer" style="display: none;">
                 <label for="countdownSelect">CountdownSelect:</label>
                 <select id="countdownSelect" name="countdownSelect">
@@ -284,7 +284,7 @@ $guest= App\Models\Guest::find(3);
                     <input type="checkbox" id="Gif" name="Gif" @if ($event->countdown) checked @endif>
                 </div>
 
-                   
+
                         <div id="GifSelectContainer" style="display: none;">
                         <label for="GifSelect">GifSelect:</label>
                         <select id="GifSelect" name="GifSelect" onchange="showGifPreview()">
@@ -297,7 +297,7 @@ $guest= App\Models\Guest::find(3);
                     <div id="gifPreview" style="margin-top: 10px;">
                         <img id="gifImage" src="" alt="Selected GIF" style="max-width: 100px; display: none;" />
                     </div>
-                
+
                 {{-- end gif select --}}
             <div>
                 <label for="bgColor">Background Color:</label>

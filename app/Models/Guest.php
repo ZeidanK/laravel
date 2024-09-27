@@ -24,7 +24,8 @@ class Guest extends Model
         'is_attending',
         'notes',
         'open_link',
-        'rsvp'
+        'rsvp',
+        'user_id'
     ];
 
     public function event()

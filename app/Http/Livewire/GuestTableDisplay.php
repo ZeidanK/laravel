@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class GuestTableDisplay extends Component
 {
+    public $user;
     public $guests;
     public $search = '';
     public $filterClickedYes = true;
@@ -24,17 +25,25 @@ class GuestTableDisplay extends Component
     public $sortField = 'first_name'; // Default sort field
     public $sortDirection = 'asc';
     public Collection $events;
+    public $event;
+
 
     public function mount($events)
     {
+        $this->event=Event::where('user_id', auth()->user()->id)->first();
+        $this->user = auth()->user();
         $this->events = $events;
+        if($this->event==null){
+            $this->event=Event::first();
+        }else
         if ($this->events->isNotEmpty()) {
-            $this->guests = Guest::where('user_id', $this->events->first()->user_id)
-                     ->where('event_id', $this->events->first()->id)
-                     ->get();
+            $this->guests = Guest::where('user_id', $this->user->id)
+                                    ->where('event_id', $this->event->id)
+                                    ->get();
+
         } else
 
-        if ($this->guests->isEmpty()) {
+        if ($this->guests==null) {
             session()->flash('message', 'No guests found for the selected event.');
         }
     }
@@ -78,7 +87,7 @@ class GuestTableDisplay extends Component
     public function filterGuests()
     {
         if ($this->events->isNotEmpty()) {
-            $event = $this->events->first();
+            $event = $this->event;
             $query = Guest::where('user_id', $event->user_id)
                           ->where('event_id', $event->id);
 
@@ -173,7 +182,7 @@ class GuestTableDisplay extends Component
     public function downloadFullExcel()
     {
         if ($this->events->isNotEmpty()) {
-            $event = $this->events->first();
+            $event = $this->event;
             $guests = Guest::where('event_id', $event->id)->get();
 
             $spreadsheet = new Spreadsheet();

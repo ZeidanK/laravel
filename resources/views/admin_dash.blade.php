@@ -14,6 +14,34 @@
     display: none;
 }
 </style> --}}
+@extends('layouts.app')
+
+@section('content')
+<?php
+
+
+use Illuminate\Support\Facades\DB;
+use App\Models\Event;
+use Illuminate\Support\Facades\Auth;
+
+$user = Auth::user();
+//$events = collect();
+
+if ($user) {
+    if ($user && $user->isAdmin()) {
+        $events = Event::where('user_id', 3)->get();
+    } else {
+        $events = Event::where('user_id', 3)->get();
+    }
+} else {
+    $events = Event::where('user_id', 3)->get();
+}
+
+$event = $events->first() ?? null;
+
+
+
+?>
 <!DOCTYPE html>
 <html class="h-full bg-beige-700">
 <head>
@@ -160,27 +188,30 @@
         <div id="dashboard-content" class="content-section">
             <h1>Dashboard Content</h1>
             <!-- Your dashboard content here -->
-            <?php
-                try {
-                    $pdo = DB::connection()->getPdo();
-                    echo "<p>Database connection successful!</p>";
-                } catch (\Exception $e) {
-                    echo "<p>Database connection failed: " . $e->getMessage() . "</p>";
-                }
-                $users = DB::table('users')->get();
-                echo "<p>Users:</p>";
+            {{-- <?php
+                // try {
+                //     $pdo = DB::connection()->getPdo();
+                //     echo "<p>Database connection successful!</p>";
+                // } catch (\Exception $e) {
+                //     echo "<p>Database connection failed: " . $e->getMessage() . "</p>";
+                // }
+                // $users = DB::table('users')->get();
+                // echo "<p>Users:</p>";
 
-                foreach ($users as $user) {
-                    echo "<p>$user->name</p>";
-                }
-
-
+                // foreach ($users as $user) {
+                //     echo "<p>$user->name</p>";
+                // }
 
 
 
 
-            ?>
-            <table>
+
+
+
+            ?> --}}
+
+
+            {{-- <table>
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -206,14 +237,16 @@
                         </tr>
                     @endforeach
                 </tbody>
-            </table>
-            @auth
+            </table> --}}
+            @guest
+                <livewire:user-log-in />
+            @else
                 @if(auth()->user()->role === 'admin')
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                         Admin Button
                     </button>
                 @endif
-            @endauth
+            @endguest
 
 
         </div>
@@ -233,8 +266,7 @@
             <!-- Your projects content here -->
 
             <?php
-            DB::table('events')->get();
-            $events = DB::table('events')->get();
+
             echo "<p>Events:</p>";
             ?>
             <table>
@@ -268,11 +300,10 @@
             @inject('event', 'App\Models\Event')
             <?php
 
-use App\Models\Event;
-use Illuminate\Support\Facades\Auth;
+
 
             $userId = Auth::check() ? Auth::id() : 1;
-            $events = Event::where('user_id', $userId)->get();
+            //$events = Event::where('user_id', $userId)->get();
 
             // echo "$events";
             ?>
@@ -298,23 +329,30 @@ use Illuminate\Support\Facades\Auth;
 
         <!-- Reports Content -->
         <div id="reports-content" class="content-section hidden">
-            <h1>Reports Content</h1>
+
             <!-- Your reports content here -->
+            <div class="container mt-5">
+
+
+                <!-- Your contact request content here -->
+                @livewireStyles
+                {{-- <livewire:import-guests-file :event="$events[0]"/> --}}
+                @if($event!=null)
+                <livewire:guest-table-edit :event="$events[0]"  />
+                @endif
+
+                {{-- <livewire:contact-request-table-display /> --}}
+
+
+                @livewireScripts
+
+            </div>
         </div>
 
         <!-- Contact Request Content -->
         <div id="contact-request-content" class="content-section hidden">
-
-            <!-- Your contact request content here -->
-            @livewireStyles
-            <livewire:import-guests-file :event="$events[0]"/>
-
-            <livewire:contact-request-table-display />
-
-
-            @livewireScripts
-
         </div>
+
     </div>
     </main>
   </div>
@@ -407,3 +445,5 @@ use Illuminate\Support\Facades\Auth;
         });
     });
 </script>
+
+@endsection
