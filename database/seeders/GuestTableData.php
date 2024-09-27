@@ -17,23 +17,23 @@ class GuestTableData extends Seeder
         //
         DB::table('guests')->insert([
             'guest_slug' => 'test-guest2',
-            'event_id' => 2,
+            'event_id' => 1,
             'first_name' => 'فريد',
             'last_name' => 'نجم',
             'phone_number' => '123-456-7890',
-            'is_attending' => 1,
+
             'open_link' => 0,
-            'user_id' => 1
+            'user_id' => 3
         ]);
         DB::table('guests')->insert([
             'guest_slug' => 'test-guest3',
-            'event_id' => 2,
+            'event_id' => 1,
             'first_name' => 'اعتماد',
             'last_name' => 'العوضي',
             'phone_number' => '123-456-7890',
-            'is_attending' => 1,
+
             'open_link' => 0,
-            'user_id' => 1
+            'user_id' => 3
 
         ]);
         DB::table('guests')->insert([
@@ -42,9 +42,9 @@ class GuestTableData extends Seeder
             'first_name' => 'شهاب',
             'last_name' => 'الدين',
             'phone_number' => '123-456-7890',
-            'is_attending' => 1,
+
             'open_link' => 0,
-            'user_id' => 2
+            'user_id' => 4
         ]);
         DB::table('guests')->insert([
             'guest_slug' => 'test-guest5',
@@ -52,9 +52,9 @@ class GuestTableData extends Seeder
             'first_name' => 'ثامر',
             'last_name' => 'هلال',
             'phone_number' => '123-456-7890',
-            'is_attending' => 1,
+
             'open_link' => 0,
-            'user_id' => 2
+            'user_id' => 4
         ]);
         DB::table('guests')->insert([
             'guest_slug' => 'test-guest6',
@@ -64,7 +64,7 @@ class GuestTableData extends Seeder
             'phone_number' => '123-456-7890',
 
             'open_link' => 0,
-            'user_id' => 2
+            'user_id' => 4
         ]);
         DB::table('guests')->insert([
             'guest_slug' => 'test-guest7',
@@ -72,9 +72,9 @@ class GuestTableData extends Seeder
             'first_name' => 'بيبي',
             'last_name' => 'نجم',
             'phone_number' => '123-456-7890',
-            'is_attending' => 0,
+
             'open_link' => 1,
-            'user_id' => 2
+            'user_id' => 3
         ]);
         DB::table('guests')->insert([
             'guest_slug' => 'test-guest8',
@@ -83,7 +83,7 @@ class GuestTableData extends Seeder
             'last_name' => 'العوضي',
             'phone_number' => '123-456-7890',
             'open_link' => 1,
-            'user_id' => 2
+            'user_id' => 3
         ]);
     }
 }

@@ -12,9 +12,9 @@ use App\Models\Event;
 use Illuminate\Database\Eloquent\Collection;
 
 
-
 class GuestTableDisplay extends Component
 {
+    public $user;
     public $guests;
     public $search = '';
     public $filterClickedYes = true;
@@ -25,17 +25,25 @@ class GuestTableDisplay extends Component
     public $sortField = 'first_name'; // Default sort field
     public $sortDirection = 'asc';
     public Collection $events;
+    public $event;
+
 
     public function mount($events)
     {
+        $this->event=Event::where('user_id', auth()->user()->id)->first();
+        $this->user = auth()->user();
         $this->events = $events;
+        if($this->event==null){
+            $this->event=Event::first();
+        }else
         if ($this->events->isNotEmpty()) {
-            $this->guests = Guest::where('user_id', $this->events->first()->user_id)
-                     ->where('event_id', $this->events->first()->id)
-                     ->get();
+            $this->guests = Guest::where('user_id', $this->user->id)
+                                    ->where('event_id', $this->event->id)
+                                    ->get();
+
         } else
 
-        if ($this->guests->isEmpty()) {
+        if ($this->guests==null) {
             session()->flash('message', 'No guests found for the selected event.');
         }
     }
@@ -79,7 +87,7 @@ class GuestTableDisplay extends Component
     public function filterGuests()
     {
         if ($this->events->isNotEmpty()) {
-            $event = $this->events->first();
+            $event = $this->event;
             $query = Guest::where('user_id', $event->user_id)
                           ->where('event_id', $event->id);
 
@@ -138,33 +146,10 @@ class GuestTableDisplay extends Component
         $this->sortField = $field;
         $this->filterGuests();
     }
-
-    public function downloadFilteredExcel() //filtering still not working
+    public function downloadFilteredExcel()
     {
-        $query = Guest::query();
+        $guests = $this->guests; // Use the currently displayed guests
 
-        if ($this->search) {
-            $query->where(function($q) {
-                $q->where('first_name', 'like', '%' . $this->search . '%')
-                  ->orWhere('last_name', 'like', '%' . $this->search . '%')
-                  ->orWhere('phone_number', 'like', '%' . $this->search . '%');
-            });
-        }
-        if ($this->filterAttending || $this->filterNotAttending || $this->filterNoResponse) {
-            $query->where(function($q) {
-                if ($this->filterAttending) {
-                    $q->where('is_attending', 1);
-                }
-                if ($this->filterNotAttending) {
-                    $q->where('is_attending', 0);
-                }
-                if ($this->filterNoResponse) {
-                    $q->whereNull('is_attending');
-                }
-            });
-        }
-
-        $guests = $query->get();
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
@@ -194,37 +179,43 @@ class GuestTableDisplay extends Component
         return Response::download($temp_file, $fileName)->deleteFileAfterSend(true);
     }
 
-
     public function downloadFullExcel()
     {
-        $guests = Guest::all();
-        $spreadsheet = new Spreadsheet();
-        $sheet = $spreadsheet->getActiveSheet();
+        if ($this->events->isNotEmpty()) {
+            $event = $this->event;
+            $guests = Guest::where('event_id', $event->id)->get();
 
-        // Set the header
-        $sheet->setCellValue('A1', 'First Name');
-        $sheet->setCellValue('B1', 'Last Name');
-        $sheet->setCellValue('C1', 'Phone Number');
-        $sheet->setCellValue('D1', 'Is Attending');
-        $sheet->setCellValue('E1', 'Open Link');
+            $spreadsheet = new Spreadsheet();
+            $sheet = $spreadsheet->getActiveSheet();
 
-        // Populate the data
-        $row = 2;
-        foreach ($guests as $guest) {
-            $sheet->setCellValue('A' . $row, $guest->first_name);
-            $sheet->setCellValue('B' . $row, $guest->last_name);
-            $sheet->setCellValue('C' . $row, $guest->phone_number);
-            $sheet->setCellValue('D' . $row, $guest->is_attending ? 'Yes' : 'No');
-            $sheet->setCellValue('E' . $row, $guest->open_link ? 'Yes' : 'No');
-            $row++;
+            // Set the header
+            $sheet->setCellValue('A1', 'First Name');
+            $sheet->setCellValue('B1', 'Last Name');
+            $sheet->setCellValue('C1', 'Phone Number');
+            $sheet->setCellValue('D1', 'Is Attending');
+            $sheet->setCellValue('E1', 'Open Link');
+
+            // Populate the data
+            $row = 2;
+            foreach ($guests as $guest) {
+                $sheet->setCellValue('A' . $row, $guest->first_name);
+                $sheet->setCellValue('B' . $row, $guest->last_name);
+                $sheet->setCellValue('C' . $row, $guest->phone_number);
+                $sheet->setCellValue('D' . $row, $guest->is_attending ? 'Yes' : 'No');
+                $sheet->setCellValue('E' . $row, $guest->open_link ? 'Yes' : 'No');
+                $row++;
+            }
+
+            $writer = new Xlsx($spreadsheet);
+            $fileName = 'guests.xlsx';
+            $temp_file = tempnam(sys_get_temp_dir(), $fileName);
+            $writer->save($temp_file);
+
+            return Response::download($temp_file, $fileName)->deleteFileAfterSend(true);
+        } else {
+            session()->flash('message', 'No events found.');
+            return redirect()->back();
         }
-
-        $writer = new Xlsx($spreadsheet);
-        $fileName = 'guests.xlsx';
-        $temp_file = tempnam(sys_get_temp_dir(), $fileName);
-        $writer->save($temp_file);
-
-        return Response::download($temp_file, $fileName)->deleteFileAfterSend(true);
     }
 
 

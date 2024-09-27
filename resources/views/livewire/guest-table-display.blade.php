@@ -8,10 +8,10 @@
 <!-- Sort Button -->
 
 <!-- Checkbox for filtering guests who clicked the link -->
-<div class="mb-4 border p-4 rounded">
+<div class="mb-4 border p-4 rounded" style="text-align: center;">
     <div class="flex justify-between">
         <div class="w-1/2 pr-2">
-            <h3 class="font-bold mb-2">تصفية الضيوف حسب النقر على الرابط</h3>
+            <h3 class="font-bold mb-2" style="text-align: right;">تصفية الضيوف حسب النقر على الرابط</h3>
             <div>
                 <label class="inline-flex items-center">
                     <input type="checkbox" wire:model="filterClickedYes" class="form-checkbox">
@@ -63,6 +63,7 @@
         </tr>
     </thead>
     <tbody>
+        @if($guests!==null)
         @foreach($guests as $index => $guest)
             @if(($filterClickedYes && $guest->open_link == 1) || ($filterClickedNo && $guest->open_link == 0)|| ($filterAttending && $guest->is_attending == 1) || ($filterNotAttending && $guest->is_attending == 0) || ($filterNoResponse && $guest->is_attending == null))
                 <tr>
@@ -94,6 +95,7 @@
                 </tr>
             @endif
         @endforeach
+        @endif
     </tbody>
 </table>
 <script>

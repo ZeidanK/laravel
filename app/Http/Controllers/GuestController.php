@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Imports\GuestImport;
+use Log;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Models\Guest;
 
@@ -59,5 +61,23 @@ class GuestController extends Controller
 
         // Redirect or return a response
         return redirect('/guests')->with('status', 'RSVP updated successfully!');
+    }
+    public function importExcelData(Request $request)
+    {
+        Log::info('Importing Excel data');
+        // Validate the request
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv'
+        ]);
+        Log::info('Request validated');
+
+        // Get the file from the request
+        $file = $request->file('file');
+        Log::info('File retrieved: ' . $file->getClientOriginalName());
+        // Read the file and import the data
+        Excel::import(new GuestImport, $file,$request->event_id);
+        Log::info('Excel data imported');
+        // Redirect or return a response
+        return redirect('/guests')->with('status', 'Guests imported successfully!');
     }
 }

@@ -14,19 +14,19 @@
                 <tbody>
                     <tr>
                         <td style="border: 1px solid #ccc; padding: 8px; text-align: center; font-size: 1.1em;">
-                            {{ $numberOfGuestsAttending }} ({{ number_format(($numberOfGuestsAttending / $numberOfGuests) * 100, 0) }}%)
+                            {{ $numberOfGuestsAttending }} (@if($numberOfGuests){{ number_format(($numberOfGuestsAttending / $numberOfGuests) * 100, 0) }}@else 0 @endif%)
                         </td>
                         <td style="border: 1px solid #ccc; padding: 8px; text-align: right; font-size: 1.1em;">الحضور</td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid #ccc; padding: 8px; text-align: center; font-size: 1.1em;">
-                            {{ $numberOfGuestsNotAttending }} ({{ number_format(($numberOfGuestsNotAttending / $numberOfGuests) * 100, 0) }}%)
+                            {{ $numberOfGuestsNotAttending }} @if($numberOfGuests)({{ number_format(($numberOfGuestsNotAttending / $numberOfGuests) * 100, 0) }}@else 0 @endif%)
                         </td>
                         <td style="border: 1px solid #ccc; padding: 8px; text-align: right; font-size: 1.1em;">غير الحضور</td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid #ccc; padding: 8px; text-align: center; font-size: 1.1em;">
-                            {{ $numberOfGuestsNotResponded }} ({{ number_format(($numberOfGuestsNotResponded / $numberOfGuests) * 100, 0) }}%)
+                            {{ $numberOfGuestsNotResponded }} @if($numberOfGuests)({{ number_format(($numberOfGuestsNotResponded / $numberOfGuests) * 100, 0) }}@else 0 @endif%)
                         </td>
                         <td style="border: 1px solid #ccc; padding: 8px; text-align: right; font-size: 1.1em;">لم يرد</td>
                     </tr>
@@ -38,13 +38,13 @@
                     </tr>
                     <tr>
                         <td style="border: 1px solid #ccc; padding: 8px; text-align: center; font-size: 1.1em;">
-                            {{ $numberOfGuestsOpenLink }} ({{ number_format(($numberOfGuestsOpenLink / $numberOfGuests) * 100, 0) }}%)
+                            {{ $numberOfGuestsOpenLink }} @if($numberOfGuests)({{ number_format(($numberOfGuestsOpenLink / $numberOfGuests) * 100, 0) }}@else 0 @endif%)
                         </td>
                         <td style="border: 1px solid #ccc; padding: 8px; text-align: right; font-size: 1.1em;">فتح الرابط</td>
                     </tr>
                     <tr>
                         <td style="border: 1px solid #ccc; padding: 8px; text-align: center; font-size: 1.1em;">
-                            {{ $numberOfGuestsNotOpenLink }} ({{ number_format(($numberOfGuestsNotOpenLink / $numberOfGuests) * 100, 0) }}%)
+                            {{ $numberOfGuestsNotOpenLink }} @if($numberOfGuests)({{ number_format(($numberOfGuestsNotOpenLink / $numberOfGuests) * 100, 0) }}@else 0 @endif%)
                         </td>
                         <td style="border: 1px solid #ccc; padding: 8px; text-align: right; font-size: 1.1em;">لم يفتح الرابط</td>
                     </tr>

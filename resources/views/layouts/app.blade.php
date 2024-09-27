@@ -15,23 +15,91 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <!-- Custom Styles -->
+    <style>
+        .navbar {
+            background-color: rgb(235, 235, 235) !important;
+        }
+    </style>
+    <style>
+        .btn:hover {
+            background-color: rgb(245, 134, 79) !important;
+        }
+        .btntxt{
+            color: rgb(38, 123, 51);
+            font: 1.1em sans-serif;
+        }
+        .btnborder{
+            border: 2px solid rgb(128, 128, 128);
+        }
+    </style>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light  shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
+                    <img src="{{ asset('images/logo.screenshot.jpg') }}" alt="App Logo" style="height: 80px; margin-right: 0px;">
+                    {{-- <span>{{ config('app.name', 'Laravel') }}</span> --}}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
+                <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+                    <!-- Centered Buttons -->
+                    <ul class="navbar-nav mx-auto">
 
+                        <li class="nav-item me-2">
+                            <a href="{{ route('dashboard.welcomedash') }}" class="btn btntxt btnborder" style="background-color: lightorange; font-weight: bold;">اللوحة الرئيسية</a>
+                        </li>
+                        <li class="nav-item me-2">
+                            <a href="{{ route('dashboard.contactus') }}" class="btn btntxt btnborder" style="background-color: lightorange; font-weight: bold;">اتصل بنا</a>
+                        </li>
+
+                        <li class="nav-item me-2">
+                            <a href="{{ route('dashboard.eventedit') }}" class="btn btntxt btnborder" style="background-color: lightorange; font-weight: bold;">تعديل الحدث</a>
+                        </li>
+
+                        @guest
+                            <li class="nav-item me-2">
+                                <button class="btn btntxt btnborder" style="background-color: lightorange; font-weight: bold;">زر 2 ضيف</button>
+                            </li>
+                        @else
+                            @if (Auth::user()->isAdmin())
+                            <li class="nav-item me-2">
+                                <a href="{{ route('dashboard.guestdisplay') }}" class="btn btntxt btnborder" style="background-color: lightorange; font-weight: bold;"> الحدث</a>
+                            </li>
+                            <li class="nav-item me-2">
+                                <a href="{{ route('dashboard.admindash') }}" class="btn btntxt btnborder" style="background-color: lightorange; font-weight: bold;">لوحة الإدارة</a>
+                            </li>
+
+                                <li class="nav-item me-2">
+                                    <a href="{{ route('dashboard.guestedit') }}" class="btn btntxt btnborder" style="background-color: lightorange; font-weight: bold;">تعديل الضيف</a>
+                                </li>
+
+                                <li class="nav-item me-2">
+                                    <button class="btn btntxt btnborder" style="background-color: lightorange; font-weight: bold;">زر 1 إدارة</button>
+                                </li>
+
+                            @else
+                            <li class="nav-item me-2">
+                                <a href="{{ route('dashboard.guestdisplay') }}" class="btn btntxt btnborder" style="background-color: lightorange; font-weight: bold;"> الحدث</a>
+                            </li>
+
+                                <li class="nav-item me-2">
+                                    <a href="{{ route('dashboard.guestedit') }}" class="btn btntxt btnborder" style="background-color: lightorange; font-weight: bold;">تعديل الضيف</a>
+                                </li>
+                                <li class="nav-item me-2">
+                                    <button class="btn btntxt btnborder" style="background-color: lightorange; font-weight: bold;">زر 1 عميل</button>
+                                </li>
+
+                            @endif
+                        @endguest
                     </ul>
+                </div>
+
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
@@ -75,6 +143,8 @@
         <main class="py-4">
             @yield('content')
         </main>
+
+        @include('layouts.footer')
     </div>
 </body>
 </html>
