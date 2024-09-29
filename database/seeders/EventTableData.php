@@ -36,11 +36,11 @@ class EventTableData extends Seeder
             'event_time' => '12:00:00',
             'event_location' => 'https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3374.069620146545!2d35.009924!3d32.256209!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzLCsDE1JzIyLjQiTiAzNcKwMDAnMzUuNyJF!5e0!3m2!1sen!2sil!4v1722000402175!5m2!1sen!2sil" width="100%" height="450"',
             'event_description' => 'السلام',
-            'user_id' => 2,
+            'user_id' => 3,
             'image' => 1,
             'event_image' => 'default.jpg'
         ]);
 
-        
+
     }
 }

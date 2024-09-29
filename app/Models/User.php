@@ -21,6 +21,7 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'username',
+        'name',
         'phone_number',
         'email',
         'password',
@@ -50,5 +51,18 @@ class User extends Authenticatable
             return false;
         }
         return $this->role === 'admin';
+    }
+    use Notifiable;
+
+    // Other model properties and methods
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    public function hasRole($role)
+    {
+        return $this->roles()->where('name', $role)->exists();
     }
 }

@@ -1,25 +1,30 @@
-{{-- The Master doesn't talk, he acts. --}}
-<div class="container mt-5">
-    <div class="row ">
-        <div class="col-md-8 mt-5">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Import Guest File</h4>
-                </div>
-                <div class="card-body">
-                    <form wire:submit.prevent="importFile" method="post" enctype="multipart/form-data">
-                        @csrf
-                        <div class="input-group">
 
-                            <input type="file" name="import_file"  class="form-control"  />
-                            <button type="submit" class="btn btn-primary">Import File</button>
-                        </div>
+<div style="border: 1px solid #ead3d3; padding: 10px;">
 
-                    </form>
-                </div>
-            </div>
+    <h4 class="h6 text-end" style="direction: rtl; text-align: right;">استيراد ملف الضيوف</h4>
+
+    {{-- عرض رسائل الفلاش --}}
+    @if (session()->has('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
         </div>
-    </div>
+    @endif
+
+    @if (session()->has('error'))
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    <form wire:submit.prevent="importfile" method="post" enctype="multipart/form-data">
+        @csrf
+        <div class="input-group" style="max-width: 400px;">
+            <input type="file" wire:model="file" class="form-control" />
+            <button type="submit" class="btn btn-primary btn-sm rounded">استيراد الملف</button>
+        </div>
+        @error('file') <span class="text-danger">{{ $message }}</span> @enderror
+    </form>
+
 </div>
 
 
