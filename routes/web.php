@@ -31,14 +31,13 @@ Route::get('/dashboard/admindash', [DashboardController::class, 'showAdminDash']
 Route::get('/dashboard/contactus', [DashboardController::class, 'showContactUs'])->name('dashboard.contactus');
 Route::get('/dashboard/welcomedash', [DashboardController::class, 'showWelcomeDash'])->name('dashboard.welcomedash');
 Route::get('/dashboard/guestdisplay', [DashboardController::class, 'showGuestDisplay'])->name('dashboard.guestdisplay');
+Route::get('/dashboard/landingpage', [DashboardController::class, 'showLandingPage'])->name('dashboard.landingpage');
 
 
 
 
 
-
-
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'showlogin']);
 
 Route::get('/', [AuthController::class, 'showLogin']);
 

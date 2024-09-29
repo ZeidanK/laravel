@@ -14,7 +14,7 @@ class DashboardController extends Controller
     //     return view('admin_dash');
     // }
     public function __invoke(){
-        return view('admin_dash',[
+        return view('dashboard.welcome_dash',[
             'user'=>auth()->user()
         ]);
     }
@@ -35,6 +35,10 @@ class DashboardController extends Controller
     }
     public function showGuestDisplay(){
         return view('dashboard.guest_display');
+    }
+    public function showLandingPage(){
+        // return view('landingpage.T2LP.index');
+        return redirect('/landingpage/T2LP/index.html');
     }
 
 
