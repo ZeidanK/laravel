@@ -14,5 +14,9 @@
             echo "<p>Database connection failed: " . $e->getMessage() . "</p>";
         }
     @endphp
+    <div>
+        <livewire: event-display />
+        @livewireScripts
+    </div>
 </body>
 </html>

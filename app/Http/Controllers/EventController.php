@@ -63,6 +63,10 @@ class EventController extends Controller
         $event->location = $request->has('mapOption') ? 1 : 0;
         $event->countdown = $request->has('countdownOption') ? 1 : 0;
         $event->countdown_option = $request->input('countdownSelect');
+        $event->event_description = $request->input('description');
+        $event->Gif= $request->has('Gif') ? 1 : 0;
+        $event->GifSelect = $request->input('GifSelect');
+
         //$event->date=$request->input('timeoption');
         // Save the event
         $event->save();

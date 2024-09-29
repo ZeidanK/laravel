@@ -47,8 +47,8 @@ return new class extends Migration
             $table->string('countdown_option')->default('simple');
             $table->dateTime('countdown_time')->nullable();
             
-            $table->boolean('Gif')->default(false);
-            $table->string('GifSelect')->default('NoGif');
+            $table->boolean('Gif')->default(false)->nullable();
+            $table->string('GifSelect')->default('NoGif')->nullable();
 
 
             $table->unsignedBigInteger('user_id');

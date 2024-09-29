@@ -51,8 +51,8 @@ $guest= App\Models\Guest::find(3);
     margin: 0;
     padding: 20px;
     direction: rtl;
-}
-.container {
+ }
+ .container {
     text-align: center;
     width : 500px;
     border-radius: 35px;
@@ -281,22 +281,24 @@ $guest= App\Models\Guest::find(3);
                 <script src="{{ asset('js/showGifPreview.js') }}"></script>
                 <div>
                     <label for="Gif">Gif</label>
-                    <input type="checkbox" id="Gif" name="Gif" @if ($event->countdown) checked @endif>
-                </div>
+                    <input type="checkbox" id="Gif" name="Gif" @if ($event->Gif) checked @endif>
+               
 
                    
                         <div id="GifSelectContainer" style="display: none;">
                         <label for="GifSelect">GifSelect:</label>
                         <select id="GifSelect" name="GifSelect" onchange="showGifPreview()">
                             <option value="NoGif" data-gif=""></option>
-                            <option value="زهرية رومانسيه.webp" data-gif="background_gifs/زهرية رومانسيه.webp">زهرية رومانسيه</option>
-                            <option value="زرقاء ساطعه.webp" data-gif="background_gifs/زرقاء ساطعه.webp">زرقاء ساطعه</option>
+                            <option value="زهرية رومانسيه.webp" data-gif="background_gifs/زهرية رومانسيه.webp"  @if ($event->GifSelect == 'زهرية رومانسيه.webp') selected @endif>زهرية رومانسيه</option>
+                            <option value="زرقاء ساطعه.webp" data-gif="background_gifs/زرقاء ساطعه.webp"  @if ($event->GifSelect == 'زرقاء ساطعه.webp') selected @endif>زرقاء ساطعه</option>
                         </select>
+                        <div id="gifPreview" style="margin-top: 10px;">
+                            <img id="gifImage" src="" alt="Selected GIF" style="max-width: 100px; display: none;" />
+                        </div>
                     </div>
-
-                    <div id="gifPreview" style="margin-top: 10px;">
-                        <img id="gifImage" src="" alt="Selected GIF" style="max-width: 100px; display: none;" />
                     </div>
+                
+                   
                 
                 {{-- end gif select --}}
             <div>
@@ -307,6 +309,10 @@ $guest= App\Models\Guest::find(3);
         </form>
     </div>
     </div>
+{{-- <div>
+    <livewire:event-display />
+    @livewireScripts
+</div> --}}
 </body>
 </html>
 
@@ -318,15 +324,15 @@ $guest= App\Models\Guest::find(3);
 </script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const countdownCheckbox = document.getElementById('Gif');
-        const countdownSelectContainer = document.getElementById('GifSelectContainer');
+        const GifCheckbox = document.getElementById('Gif');
+        const GifSelectContainer = document.getElementById('GifSelectContainer');
 
         // Show or hide the select based on the checkbox state on page load
-        countdownSelectContainer.style.display = countdownCheckbox.checked ? 'block' : 'none';
+        GifSelectContainer.style.display = GifCheckbox.checked ? 'block' : 'none';
 
         // Add an event listener to toggle the select visibility
-        countdownCheckbox.addEventListener('change', function () {
-            countdownSelectContainer.style.display = this.checked ? 'block' : 'none';
+        GifCheckbox.addEventListener('change', function () {
+            GifSelectContainer.style.display = this.checked ? 'block' : 'none';
         });
     });
 </script>
