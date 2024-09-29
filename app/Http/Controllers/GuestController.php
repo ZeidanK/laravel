@@ -11,11 +11,11 @@ class GuestController extends Controller
 {
     //
     public function show(){
-        return view('event_test');
+        return view('event_test2');
     }
     public function list()
     {
-        return view('event_test');
+        return view('event_test2');
     }
 
     public function create()

@@ -31,14 +31,13 @@ Route::get('/dashboard/admindash', [DashboardController::class, 'showAdminDash']
 Route::get('/dashboard/contactus', [DashboardController::class, 'showContactUs'])->name('dashboard.contactus');
 Route::get('/dashboard/welcomedash', [DashboardController::class, 'showWelcomeDash'])->name('dashboard.welcomedash');
 Route::get('/dashboard/guestdisplay', [DashboardController::class, 'showGuestDisplay'])->name('dashboard.guestdisplay');
+Route::get('/dashboard/landingpage', [DashboardController::class, 'showLandingPage'])->name('dashboard.landingpage');
 
 
 
 
 
-
-
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [AuthController::class, 'showlogin']);
 
 Route::get('/', [AuthController::class, 'showLogin']);
 
@@ -51,8 +50,6 @@ Route::get('/events/{id}', [EventController::class, 'show']);
 Route::post('/events/{id}/update', [EventController::class, 'update'])->name('events.update');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
-Route::post('/dashboard/{id}', [GuestController::class, 'importExcelData'])->name('dashboard');
 
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 

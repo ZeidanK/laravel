@@ -19,7 +19,7 @@ class AuthController extends Controller
 
     public function dashboard()
     {
-        return view('admin_dash'); // Ensure you have a 'admin_dash.blade.php' file in the 'resources/views' directory
+        return view('dashboard.welcome_dash'); // Ensure you have a 'admin_dash.blade.php' file in the 'resources/views' directory
     }
 
     public function login()
