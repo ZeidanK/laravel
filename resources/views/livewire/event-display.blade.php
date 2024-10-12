@@ -1,4 +1,8 @@
 <div>
+    <div class="event-display">
+        <h3>Event {{ $eventId }}</h3>
+        <p>This is the display for Event {{ $eventId }}.</p>
+    </div>
     
 
     <meta charset="UTF-8">
@@ -84,6 +88,16 @@
 
 
     h1 {
+            font-size: 30px;
+    color: #63666A;
+    background-color: rgba(255, 255, 255, 0);
+    border-radius: 50%;
+    backdrop-filter: blur(5px);
+    padding: 10px 10px;
+    text-align: center;
+    display: inline-block;
+    }
+    h2 {
             font-size: 20px;
     color: #63666A;
     background-color: rgba(255, 255, 255, 0);
@@ -134,8 +148,8 @@
         <div class="image-wrapper">
 
      <h1>{{$event->event_description}} {{ $guest->first_name }} {{ $guest->last_name }}</h1>
-     <p>You have been invited to {{ $event->event_name }}'s wedding!</p>
-     <p>{{ $user->name }}</p>
+     <h2>انت مدعو الى {{ $event->event_name }} {{ $user->name }}</h2>
+     
 
      @if ($event->image)
 

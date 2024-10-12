@@ -38,11 +38,11 @@
 }
 
 .image-wrapper {
-   @if ($event->Gif)
+   
        
    
     background: url('background_gifs/{{$event->GifSelect}}') center/cover;
-    @endif
+    
    /* background: asset('background_gifs/tia_gif.webp'); */
 
    /* <img class="h-16 w-auto max-w-full" src="{{ asset('background_gifs/tia_gif.webp') }}" alt="da3wah"> */
