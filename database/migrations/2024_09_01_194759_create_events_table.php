@@ -24,7 +24,7 @@ return new class extends Migration
             // ->onDelete('cascade');
 
             $table->string('event_name')->nullable();
-            $table->string('event_slug');
+            $table->string('event_slug')->nullable( );
             $table->string('event_date')->nullable();
             $table->string('event_time')->nullable();
             $table->text('event_location')->nullable();
@@ -46,7 +46,7 @@ return new class extends Migration
             $table->string('countdown_date')->nullable();
             $table->string('countdown_option')->default('simple');
             $table->dateTime('countdown_time')->nullable();
-            
+            $table->string('status')->default('pending');
             $table->boolean('Gif')->default(false)->nullable();
             $table->string('GifSelect')->default('NoGif')->nullable();
 
@@ -67,7 +67,7 @@ return new class extends Migration
         });
         DB::statement('ALTER TABLE events MODIFY event_image LONGBLOB');
     }
-    
+
 
     /**
      * Reverse the migrations.

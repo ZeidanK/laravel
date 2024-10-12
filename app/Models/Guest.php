@@ -25,7 +25,8 @@ class Guest extends Model
         'notes',
         'open_link',
         'rsvp',
-        'user_id'
+        'user_id',
+        'has_error'
     ];
 
     public function event()
@@ -47,6 +48,26 @@ class Guest extends Model
         return $guest;
         //return redirect('/guests');
     }
+    public function checkError()
+    {
+        $this->has_error = false;
 
+        // Check if first name is empty or contains numbers
+        if (empty($this->first_name) || preg_match('/\d/', $this->first_name)) {
+            $this->has_error = true;
+        }
+
+        // Check if last name is empty or contains numbers
+        if (empty($this->last_name) || preg_match('/\d/', $this->last_name)) {
+            $this->has_error = true;
+        }
+
+        // Check if phone number is empty, contains non-numeric characters, or is not between 9 and 12 digits long
+        if (empty($this->phone_number) || !preg_match('/^\d{9,12}$/', $this->phone_number)) {
+            $this->has_error = true;
+        }
+
+        return $this->has_error;
+    }
 
 }

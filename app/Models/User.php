@@ -65,4 +65,25 @@ class User extends Authenticatable
     {
         return $this->roles()->where('name', $role)->exists();
     }
+
+    public function getNumberOfGuests(){
+        return $this->guests()->count();
+    }
+    public function guests()
+    {
+        return $this->hasMany(Guest::class);
+    }
+    public function getFullNameAttribute()
+    {
+        return $this->first_name . ' ' . $this->last_name;
+    }
+    public function getNumberOfEvents(){
+        return $this->events()->count();
+    }
+    public function events()
+    {
+        return $this->hasMany(Event::class);
+    }
+
+
 }

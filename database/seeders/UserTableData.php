@@ -22,7 +22,7 @@ class UserTableData extends Seeder
 
             'name' => 'karim ziedan',
             'email' => 'karemziedan@gmail.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('password1'),
             'phone_number' => '123-456-7890',
             'role' => 'admin'
         ]);

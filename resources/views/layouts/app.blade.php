@@ -13,8 +13,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Fonts -->
-    {{-- <link rel="dns-prefetch" href="//fonts.bunny.net"> --}}
-    {{-- <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet"> --}}
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -54,6 +54,10 @@ html body {
     <style>
         .navbar {
             background-color: #E5E5E5            !important;
+            height: 140px;
+            z-index: 1050; /* Ensure it appears above other elements */
+
+
         }
     </style>
     <style>
@@ -66,11 +70,16 @@ html body {
             font-size: 1.3em;
         }
         .btnborder{
-            border: 1px solid rgb(128, 128, 128);
+            border: 0px solid rgb(128, 128, 128);
         }
         .btn.active {
             background-color: rgb(234, 234, 234) !important;
             color: rgb(164, 174, 164);
+        }
+        /* Custom styles for the dropdown */
+        .navbar .dropdown-menu {
+            background-color: #9b1919; !important /* Set the background color */
+            z-index: 1050; /* Ensure it appears above other elements */
         }
     </style>
 
@@ -78,9 +87,9 @@ html body {
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light  shadow-sm">
-            <div class="container">
-                <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
-                    <img src="{{ asset('images/logo.screenshot.jpg') }}" alt="App Logo" style="height: 80px; margin-right: 0px;">
+            {{-- <div class="container"> --}}
+                <a class="navbar-brand d-flex align-items-center me-auto" href="{{ url('/') }}">
+                    <img src="{{ asset('images/newlogo.png') }}" alt="App Logo" style="height: 140px; margin-right: 0px;">
                     {{-- <span>{{ config('app.name', 'Laravel') }}</span> --}}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
@@ -90,8 +99,14 @@ html body {
                 <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
                     <!-- Centered Buttons -->
                     <ul class="navbar-nav mx-auto">
+                        {{-- <li class="nav-item me-2">
+                            <a href="{{ route('dashboard.welcomedash') }}" class="btn btntxt btnborder {{ Route::currentRouteName() == 'dashboard.welcomedash' ? 'active' : '' }}" style="background-color: lightorange; font-weight: bold;">زر 1 عميل</button>
+                        </li> --}}
                         <li class="nav-item me-2">
-                            <a href="{{ route('dashboard.landingpage') }}" class="btn btntxt btnborder {{ Route::currentRouteName() == 'dashboard.landingpage' ? 'active' : '' }}" style="background-color: lightorange; font-weight: bold;">اللوحة الرئيسية</a>
+                            <a href="{{ route('dashboard.welcomedash') }}" class="btn btntxt btnborder {{ Route::currentRouteName() == 'dashboard.welcomedash' ? 'active' : '' }}" style="background-color: lightorange; font-weight: bold;">لوحة التحكم الرئيسية</a>
+                        </li>
+                        <li class="nav-item me-2">
+                            <a href="{{ route('dashboard.landingpage') }}" class="btn btntxt btnborder {{ Route::currentRouteName() == 'dashboard.landingpage' ? 'active' : '' }}" style="background-color: lightorange; font-weight: bold;">الموقع الرئيسي</a>
                         </li>
                         <li class="nav-item me-2">
                             <a href="{{ route('dashboard.contactus') }}" class="btn btntxt btnborder {{ Route::currentRouteName() == 'dashboard.contactus' ? 'active' : '' }}" style="background-color: lightorange; font-weight: bold;">اتصل بنا</a>
@@ -124,9 +139,7 @@ html body {
                                 <li class="nav-item me-2">
                                     <a href="{{ route('dashboard.guestedit') }}" class="btn btntxt btnborder {{ Route::currentRouteName() == 'dashboard.guestedit' ? 'active' : '' }}" style="background-color: lightorange; font-weight: bold;">تعديل الضيف</a>
                                 </li>
-                                <li class="nav-item me-2">
-                                    <button class="btn btntxt btnborder" style="background-color: lightorange; font-weight: bold;">زر 1 عميل</button>
-                                </li>
+
                             @endif
                         @endguest
                     </ul>
@@ -169,7 +182,7 @@ html body {
                         @endguest
                     </ul>
                 </div>
-            </div>
+            {{-- </div> --}}
         </nav>
 
         <main class="py-4">

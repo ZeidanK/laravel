@@ -11,10 +11,9 @@
 </head>
 <body>
     <header>
-        <h1>Main Header</h1>
     </header>
     <div>
-        Hello
+        <livewire:contact-request-table-display />
     </div>
 </body>
 </html>

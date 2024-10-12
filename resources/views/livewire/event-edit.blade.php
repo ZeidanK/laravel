@@ -1,253 +1,212 @@
-
-<div>
-    <div>
-        <livewire:event-display />
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; max-width: 1200px; margin: 0 auto; direction: ltr;">
+    <div style="flex: 1; max-width: 100%; max-height: 600px; overflow: auto; border: 1px solid #ccc; padding: 10px;">
+        <livewire:event-display :event="$event" :guest="null" :user="null" wire:key="event-display-{{ $event->id }}"/>
         @livewireScripts
         @livewireStyles
     </div>
-    <style>
-        body {
-   background-size: cover; /* Ensures the image covers the whole background */
-   background-color: #f3f4e7; 
-   color: black; /* Change this to your preferred text color */
-   
-   /* font-family: 'Cairo', sans-serif; Use the Google Font */
-   /* font-family: 'Noto Nastaliq Urdu', serif; Use the Noto Nastaliq Urdu Font */
-   font-family: 'Amiri', serif; /* Use the Amiri Font */
-
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   height: 100%;
-   margin: 0;
-   padding: 20px;
-   direction: rtl;
-}
-.container {
-   text-align: center;
-   width : 500px;
-   border-radius: 35px;
-   border: 2px solid #333;
-   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-   animation: fadeIn 1s;
-}
-
-.content-wrapper {
-   padding: 20px;
-   border-radius: 35px;
-}
-
-.image-wrapper {
-   @if ($event->Gif)
-       
-   
-    background: url('background_gifs/{{$event->GifSelect}}') center/cover;
-    @endif
-   /* background: asset('background_gifs/tia_gif.webp'); */
-
-   /* <img class="h-16 w-auto max-w-full" src="{{ asset('background_gifs/tia_gif.webp') }}" alt="da3wah"> */
-   border-radius: 35px;
-   padding: 20px;
-}
-.button-wrapper {
-   margin-top: 20px;
-   
-   background-color: transparent; /* Make the button wrapper background transparent */
-}
-
-
-       #countdown {
-           font-size: 3em; /* Adjust this value to change the size of the countdown */
-           text-align: center;
-           align-items: center; /* Vertically center the countdown */
- justify-content: center; /* Horizontally center the countdown */
-           
-       }
-       @keyframes fadeIn { /* Define the fade in animation */
-           0% {opacity: 0;}
-           100% {opacity: 1;}
-       }
-       .labels {
-           font-size: 1.5em;
-           display: flex;
-           justify-content: space-between;
-
-           width: 100%;
-           margin-bottom: 10px;
-       }
-       .label-item {
-           flex: 1;
-           text-align: center;
-       }
-
-
-
-       h1 {
-           font-size: 20px;
-   color: #63666A;
-   background-color: rgba(255, 255, 255, 0);
-   border-radius: 50%;
-   backdrop-filter: blur(5px);
-   padding: 10px 10px;
-   text-align: center;
-   display: inline-block;
-       }
-       /* aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa */
-
-      
-      
-   </style>
-    <div>
-        <button class="button" onclick="toggleEditOptions()" >Edit</button>
-    </div>
-
-    <div id="editOptions" style="display: none; margin-top: 20px;">
-        <div style="border: 2px solid #333; padding: 20px; max-width: 900px; margin: 0 auto; background-color: #e7e9d256;">
-        <h2>Edit Invitation</h2>
-        <form id="editForm" action="{{ route('events.update', $event->id) }}" method="POST" enctype="multipart/form-data">
-            @csrf
-            <div>
-                <label for="eventImage">Upload New Image:</label>
-                <input type="file" id="eventImage" name="eventImage">
-            </div>
-            <div>
-                <label for="rsvpOption">RSVP:</label>
-                <input type="checkbox" id="rsvpOption" name="rsvpOption" @if ($event->rsvp) checked @endif>
-            </div>
-            <div>
-                <label for="description">description:</label>
-                <input type="text" id="description" name="description" value="{{  $event->event_description }}">
-            </div>
-            <div>
-                <label for="mapOption">Include Map:</label>
-                <input type="checkbox" id="mapOption" name="mapOption" @if ($event->location) checked @endif>
-            </div>
-            <div>
-                <label for="countdownOption">CountDown:</label>
-                <input type="checkbox" id="countdownOption" name="countdownOption" @if ($event->countdown) checked @endif>
-            </div>
-            
-            <div id="countdownSelectContainer" style="display: none;">
-                <label for="countdownSelect">CountdownSelect:</label>
-                <select id="countdownSelect" name="countdownSelect">
-                    <option value="NoCountdown" @if ($event->countdown_option == '') selected @endif></option>
-
-                    <option value="simple" @if ($event->countdown_option == 'simple') selected @endif>simple</option>
-                    <option value="flip" @if ($event->countdown_option == 'flip') selected @endif>flip</option>
-                    <option value="fade" @if ($event->countdown_option == 'fade') selected @endif>fade</option>
-                    <option value="slide" @if ($event->countdown_option == 'slide') selected @endif>slide</option>
-                </select>
-            </div>
-                {{-- gif select --}}
-                <script src="{{ asset('js/showGifPreview.js') }}"></script>
+    <div style="flex: 1; margin-right: 20px; direction: rtl; max-width: 100%; margin-top: 20px;">
+        <div style="margin-left: 20px; position: relative;">
+            <select wire:model="selectedEventId" wire:change="$emit('eventSelected', $selectedEventId)">
+                <option value="">Select an Event</option>
+                @foreach($events as $event)
+                    <option value="{{ $event->id }}">{{ $event->event_name }}</option>
+                @endforeach
+            </select>
+            <button wire:click="refreshEvent">Refresh</button>
+        </div>
+        <div style="border: 2px solid #333; padding: 20px; background-color: #e7e9d256;">
+            <h2>تعديل الدعوة</h2>
+            <form id="editForm" wire:submit.prevent="updateEvent" enctype="multipart/form-data">
+                @csrf
                 <div>
-                    <label for="Gif">Gif</label>
-                    <input type="checkbox" id="Gif" name="Gif" @if ($event->Gif) checked @endif onchange="toggleGifSelect()">
+                    <label for="eventImage">تحميل صورة جديدة:</label>
+                    <input type="file" id="eventImage" wire:model="eventImage">
                 </div>
-                
-                <div id="GifSelectContainer" style="display: none;">
-                    <label for="GifSelect">GifSelect:</label>
-                    <select id="GifSelect" name="GifSelect" onchange="showGifPreview()">
-                        <option value="NoGif" data-gif=""></option>
-                        <option value="زهرية رومانسيه.webp" data-gif="background_gifs/زهرية رومانسيه.webp" @if ($event->GifSelect == 'زهرية رومانسيه.webp') selected @endif>زهرية رومانسيه</option>
-                        <option value="زرقاء ساطعه.webp" data-gif="background_gifs/زرقاء ساطعه.webp" @if ($event->GifSelect == 'زرقاء ساطعه.webp') selected @endif>زرقاء ساطعه</option>
+                <div>
+                    <label for="rsvpOption">رد الدعوة:</label>
+                    <input type="checkbox" id="rsvpOption" wire:model="rsvpOption">
+                </div>
+                <div>
+                    <label for="description">الوصف:</label>
+                    <input type="text" id="description" wire:model="description">
+                </div>
+                <div>
+                    <label for="mapOption">تضمين الخريطة:</label>
+                    <input type="checkbox" id="mapOption" wire:model="mapOption">
+                </div>
+                <div>
+                    <label for="countdownOption">العد التنازلي:</label>
+                    <input type="checkbox" id="countdownOption" wire:model="countdownOption">
+                </div>
+                <div id="countdownSelectContainer" style="display: {{ $countdownOption ? 'block' : 'none' }};">
+                    <label for="countdownSelect">اختيار العد التنازلي:</label>
+                    <select id="countdownSelect" wire:model="countdownSelect">
+                        <option value="NoCountdown"></option>
+                        <option value="simple">بسيط</option>
+                        <option value="flip">قلب</option>
+                        <option value="fade">تلاشي</option>
+                        <option value="slide">انزلاق</option>
                     </select>
-                
+                </div>
+                <div>
+                    <label for="Gif">صورة متحركة:</label>
+                    <input type="checkbox" id="Gif" wire:model="gif">
+                </div>
+                <div id="GifSelectContainer" style="display: {{ $gif ? 'block' : 'none' }};">
+                    <label for="GifSelect">اختيار الصورة المتحركة:</label>
+                    <select id="GifSelect" wire:model="gifSelect">
+                        <option value="NoGif" data-gif=""></option>
+                        <option value="زهرية رومانسيه.webp" data-gif="background_gifs/زهرية رومانسيه.webp">زهرية رومانسيه</option>
+                        <option value="زرقاء ساطعه.webp" data-gif="background_gifs/زرقاء ساطعه.webp">زرقاء ساطعه</option>
+                    </select>
                     <div id="gifPreview" style="margin-top: 10px;">
-                        <img id="gifImage" src="" alt="Selected GIF" style="max-width: 100px; display: none;" />
+                        <img id="gifImage" src="{{ $gifSelect ? asset('background_gifs/' . $gifSelect) : '' }}" alt="الصورة المتحركة المختارة" style="max-width: 100px; display: {{ $gifSelect ? 'block' : 'none' }};" />
                     </div>
                 </div>
-                
-               
-                
-                
-                   
-                
-                {{-- end gif select --}}
-            <div>
-                <label for="bgColor">Background Color:</label>
-                <input type="color" id="bgColor" name="bgColor" value="{{ $event->background_color }}">
-            </div>
-            <button type="submit" class="button">Save Changes</button>
-        </form>
+                <div>
+                    <label for="bgColor">لون الخلفية:</label>
+                    <input type="color" id="bgColor" wire:model="bgColor">
+                </div>
+                <button type="submit" class="button">حفظ التغييرات</button>
+            </form>
+        </div>
     </div>
-    
 </div>
-<script>
-    function toggleEditOptions() {
-        const editOptions = document.getElementById('editOptions');
-        editOptions.style.display = editOptions.style.display === 'none' ? 'block' : 'none';
-    }
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const GifCheckbox = document.getElementById('Gif');
-        const GifSelectContainer = document.getElementById('GifSelectContainer');
-
-        // Show or hide the select based on the checkbox state on page load
-        GifSelectContainer.style.display = GifCheckbox.checked ? 'block' : 'none';
-
-        // Add an event listener to toggle the select visibility
-        GifCheckbox.addEventListener('change', function () {
-            GifSelectContainer.style.display = this.checked ? 'block' : 'none';
-        });
-    });
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const countdownCheckbox = document.getElementById('countdownOption');
-        const countdownSelectContainer = document.getElementById('countdownSelectContainer');
-
-        // Show or hide the select based on the checkbox state on page load
-        countdownSelectContainer.style.display = countdownCheckbox.checked ? 'block' : 'none';
-
-        // Add an event listener to toggle the select visibility
-        countdownCheckbox.addEventListener('change', function () {
-            countdownSelectContainer.style.display = this.checked ? 'block' : 'none';
-        });
-    });
-</script>
-<script>
-    // When the page loads, check if the Gif checkbox is checked
-    document.addEventListener("DOMContentLoaded", function () {
-        toggleGifSelect();
-    });
-
-    // Function to toggle the visibility of the GifSelect dropdown
-    function toggleGifSelect() {
-        var gifCheckbox = document.getElementById('Gif');
-        var gifSelectContainer = document.getElementById('GifSelectContainer');
-        var gifSelect = document.getElementById('GifSelect');
-
-        if (gifCheckbox.checked) {
-            gifSelectContainer.style.display = 'block'; // Show the GifSelect dropdown
-        } else {
-            gifSelectContainer.style.display = 'none'; // Hide the GifSelect dropdown
-            gifSelect.value = 'NoGif'; // Set the value to 'NoGif' when the checkbox is unchecked
-            showGifPreview(); // Update the preview accordingly
-        }
-    }
-
-    // Function to show the GIF preview based on the selected option
-    function showGifPreview() {
-        var gifSelect = document.getElementById('GifSelect');
-        var selectedOption = gifSelect.options[gifSelect.selectedIndex];
-        var gifImage = document.getElementById('gifImage');
-        var gifSrc = selectedOption.getAttribute('data-gif');
-
-        if (gifSrc) {
-            gifImage.src = gifSrc;
-            gifImage.style.display = 'block'; // Show the GIF preview
-        } else {
-            gifImage.style.display = 'none'; // Hide the preview if no GIF is selected
-        }
-    }
-</script>
 <style>
-    #gifImage {
-        max-width: 100px; /* Set maximum width */
-        max-height: 100px; /* Set maximum height */
-        display: block; /* Display as block-level element */
-        margin: 0 auto; /* Center the image horizontally */
+    @media (max-width: 750px) {
+        div[style*="display: flex; flex-wrap: wrap; justify-content: space-between; max-width: 1200px; margin: 0 auto; direction: ltr;"] {
+            flex-direction: column;
+        }
+        div[style*="flex: 1; max-width: 100%; max-height: 600px; overflow: auto; border: 1px solid #ccc; padding: 10px;"] {
+            margin-bottom: 20px;
+        }
+        div[style*="flex: 1; margin-right: 20px; direction: rtl; max-width: 100%; margin-top: 20px;"] {
+            margin-right: 0;
+        }
     }
 </style>
+<style scoped>
+        .event-display-container {
+    /* background-size: cover; Ensures the image covers the whole background */
+    background-color: #f3f4e7;
+    color: black; /* Change this to your preferred text color */
+
+    /* font-family: 'Cairo', sans-serif; Use the Google Font */
+    /* font-family: 'Noto Nastaliq Urdu', serif; Use the Noto Nastaliq Urdu Font */
+    font-family: 'Amiri', serif; /* Use the Amiri Font */
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    padding: 20px;
+    direction: rtl;
+    min-height: 100vh;
+    flex-wrap: wrap; /* Allow wrapping if the content exceeds the page height */
+
+    }
+    .event-display-container .container{
+    text-align: center;
+    width : 500px;
+    min-height: 100vh; Make sure the container takes up the full viewport height
+    overflow: auto; /* Ensure scrolling is allowed if the content overflows */
+
+    border-radius: 35px;
+    border: 2px solid #333;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s;
+    }
+    .event-display-container .content-wrapper {
+        padding: 20px;
+        border-radius: 35px;
+    }
+
+    .event-display-container .image-wrapper {
+        @if(isset($event) && $event->GifSelect)
+            background: url('background_gifs/{{$event->GifSelect}}') center/cover;
+        @endif
+        border-radius: 35px;
+        padding: 20px;
+    }
+
+    .event-display-container .button-wrapper {
+        margin-top: 20px;
+        background-color: transparent; /* Make the button wrapper background transparent */
+    }
+
+    .event-display-container #countdown {
+        font-size: 3em; /* Adjust this value to change the size of the countdown */
+        text-align: center;
+        align-items: center; /* Vertically center the countdown */
+        justify-content: center; /* Horizontally center the countdown */
+    }
+
+    .event-display-container @keyframes fadeIn { /* Define the fade in animation */
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+    }
+
+    .event-display-container .labels {
+        font-size: 1.5em;
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .event-display-container .label-item {
+        flex: 1;
+        text-align: center;
+    }
+
+    .event-display-container h1 {
+        font-size: 20px;
+        color: #63666A;
+        background-color: rgba(255, 255, 255, 0);
+        border-radius: 50%;
+        backdrop-filter: blur(5px);
+        padding: 10px 10px;
+        text-align: center;
+        display: inline-block;
+    }
+
+    .event-display-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 35px;
+    }
+
+    .event-display-container .button {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 9px #999;
+    }
+
+    .event-display-container .button:hover {
+        background-color: #3e8e41;
+    }
+
+    .event-display-container .button:active {
+        background-color: #3e8e41;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+
+    .event-display-container #countdown {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+
+    </style>

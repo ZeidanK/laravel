@@ -27,7 +27,8 @@ class Event extends Model
         'event_status',
         'rsvp',
         'Gif',
-        'GifSelect'
+        'GifSelect',
+        'user_id',
     ];
 
         static public function createTestEvent()
