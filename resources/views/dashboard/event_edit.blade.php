@@ -15,9 +15,9 @@
     </header>
     @if(!auth()->check())
 
-        <livewire:event-example />
+        <livewire:event-example :event='null' />
         @elseif(auth()->check())
-        <livewire:event-edit />
+        <livewire:event-edit :event='null' />
     @endif
         @livewireStyles
         @livewireScripts

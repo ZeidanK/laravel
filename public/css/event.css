@@ -1,0 +1,62 @@
+  .event-display-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        /* background-color: #f0f0f0; Replace with a default color or handle dynamically in HTML */
+    }
+
+    .event-display-content {
+        border: 2px solid #333;
+        border-radius: 15px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        width: 80%;
+        max-width: 600px;
+        text-align: center;
+    }
+
+    .event-display-image-wrapper {
+
+
+        width: 100%;
+        height: auto;
+        border-radius: 15px;
+    }
+
+    .event-display-button-wrapper {
+        margin-top: 20px;
+    }
+
+    .event-display-button {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 10px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #4CAF50;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 9px #999;
+    }
+
+    .event-display-button:hover {
+        background-color: #3e8e41;
+    }
+
+    .event-display-button:active {
+        background-color: #3e8e41;
+        box-shadow: 0 5px #666;
+        transform: translateY(4px);
+    }
+
+    .event-display-countdown {
+        font-size: 24px;
+        margin-top: 20px;
+    }
+

@@ -29,6 +29,10 @@ class Event extends Model
         'Gif',
         'GifSelect',
         'user_id',
+        'background_color',
+        'countdown',
+        'countdown_option',
+        'countdown_time',
     ];
 
         static public function createTestEvent()

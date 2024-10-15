@@ -11,7 +11,7 @@
     <div style="margin-left: 20px; position: relative;">
         <select wire:model="selectedEventId" wire:change="$emit('eventSelected', $event.target.value)">
             <option value="">Select an Event</option>
-            <option value="1">Event 1</option>
+            <option value="1">Evenavvvvvvvvt 1</option>
             <option value="2">Event 2</option>
             <option value="3">Event 3</option>
         </select>

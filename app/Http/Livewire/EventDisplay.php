@@ -10,48 +10,58 @@ class EventDisplay extends Component
     public $selectedEventId;
     public $event;
     public $guest;
-    public $User;
-    protected $listeners = ['eventSelected', 'refreshEventDisplay'];
+    public $user;
+    protected $listeners = [
+        'eventSelected' => 'eventSelected',
+        'refreshEventDisplay' => 'refreshEventDisplay',
+        'updateEvent' => 'refreshEventDisplay'
+    ];
 
     public function render()
     {
-        return view('livewire.event-display');
+        return view('livewire.event-display')->with('event', $this->event);
     }
-    public function mount($event,$guest,$user){
-        if($event==null){
-            $this->event=\App\Models\Event::first();
-        }else{
-            $this->event=$event;
-        }
-        if($guest==null){
-            $this->guest=\App\Models\Guest::first();
-        }else{
-            $this->guest=$guest;
-        }
-        if($user==null){
-            $this->user=\App\Models\User::first();
-        }else{
-            $this->user=$user;
-        }
 
+    public function mount($event = null, $guest = null, $user = null)
+    {
+        $this->event = $event ?? Event::first();
+        $this->guest = $guest ?? \App\Models\Guest::first();
+        $this->user = $user ?? \App\Models\User::first();
     }
-     public function updateEvent($eventId)
+
+    public function updateEvent($eventId)
     {
         $this->event = Event::find($eventId);
+        $this->dispatchBrowserEvent('applyStyles');
     }
+
     public function updatedSelectedEventId($eventId)
     {
         $this->event = Event::find($eventId);
+        $this->dispatchBrowserEvent('applyStyles');
     }
+
     public function eventSelected($eventId)
     {
+        //dd("eventSelected");
         $this->event = Event::find($eventId);
-        if($this->event==null){
-            $this->event=Event::first();
+        if ($this->event == null) {
+            $this->event = Event::first();
         }
+        $this->dispatchBrowserEvent('applyStyles');
+        $this->emit('eventSwitched', $this->event->id, $this->event->event_date, $this->event->countdown_option);
+//dd($this->event->event_date);
     }
-    public function refreshEventDisplay($event)
+
+    public function refreshEventDisplay($eventId)
     {
-        $this->event = $event;
+        //dd("refreshEventDisplay");
+        $this->event = Event::find($eventId);
+        if ($this->event == null) {
+            $this->event = Event::first();
+        }
+        $this->dispatchBrowserEvent('applyStyles');
+        $this->emit('eventSwitched', $this->event->id, $this->event->event_date, $this->event->countdown_option);
+        //dd($this->event);
     }
 }

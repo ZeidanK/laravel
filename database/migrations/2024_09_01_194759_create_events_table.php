@@ -13,6 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
@@ -43,7 +57,7 @@ return new class extends Migration
             $table->binary('event_image')->nullable();
             $table->string('background_color')->nullable()->default('#FFFFFF');
             $table->boolean('countdown')->default(false);
-            $table->string('countdown_date')->nullable();
+            $table->datetime('countdown_date')->nullable()->change();
             $table->string('countdown_option')->default('simple');
             $table->dateTime('countdown_time')->nullable();
             $table->string('status')->default('pending');
@@ -76,6 +90,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('events');
+         Schema::dropIfExists('events');
+
     }
 };
