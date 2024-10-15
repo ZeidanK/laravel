@@ -14,7 +14,10 @@
 
     </header>
     <div>
-        Hello
+        <livewire:event-example />
+        @livewireScripts
+        @livewireStyles
+
     </div>
 </body>
 </html>

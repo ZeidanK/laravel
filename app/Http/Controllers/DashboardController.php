@@ -25,7 +25,7 @@ class DashboardController extends Controller
         return view('dashboard.admin_dash');
     }
     public function showEventEdit(){
-        return view('event_test');
+        return view('dashboard.event_edit');
     }
     public function showContactUs(){
         return view('dashboard.contact_us');
