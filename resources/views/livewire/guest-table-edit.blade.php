@@ -27,7 +27,7 @@
         @endif
     </div>
 
-    @if($isAdding)
+    @if(1)
         <div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 20px; direction: rtl; text-align: right;">
             <h1 style="font-size: 18px;">إضافة ضيف جديد</h1>
             <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
@@ -69,10 +69,10 @@
         <tbody>
             @foreach($guests as $index => $guest)
             <tr>
-                <td style="font-size: 18px; border: 1px solid #ccc; text-align: center; vertical-align: middle;">{{ $index + 1 }}</td>
-                <td style="font-size: 18px; border: 1px solid #ccc; text-align: center; vertical-align: middle;">{{ $guest->first_name }}</td>
-                <td style="font-size: 18px; border: 1px solid #ccc; text-align: center; vertical-align: middle;">{{ $guest->last_name }}</td>
-                <td style="font-size: 18px; border: 1px solid #ccc; text-align: center; vertical-align: middle;">{{ $guest->phone_number }}</td>
+                <td style="font-size: 18px; border: 1px solid #ccc; text-align: center; vertical-align: middle; {{ $guest->has_error ? 'background-color: red;' : '' }}">{{ $index + 1 }}</td>
+                <td style="font-size: 18px; border: 1px solid #ccc; text-align: center; vertical-align: middle; {{ $guest->has_error ? 'background-color: red;' : '' }}">{{ $guest->first_name }}</td>
+                <td style="font-size: 18px; border: 1px solid #ccc; text-align: center; vertical-align: middle; {{ $guest->has_error ? 'background-color: red;' : '' }}">{{ $guest->last_name }}</td>
+                <td style="font-size: 18px; border: 1px solid #ccc; text-align: center; vertical-align: middle; {{ $guest->has_error ? 'background-color: red;' : '' }}">{{ $guest->phone_number }}</td>
                 <td style="border: 1px solid #ccc; text-align: center; vertical-align: middle;">
                     <button wire:click="editGuest({{ $guest->id }})" style="background-color: #008CBA; color: white; padding: 5px 10px; border: none; cursor: pointer; border-radius: 5px;">تعديل</button>
                     <button wire:click="deleteGuest({{ $guest->id }})" style="background-color: #f44336; color: white; padding: 5px 10px; border: none; cursor: pointer; border-radius: 5px;">حذف</button>

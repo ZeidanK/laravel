@@ -5,7 +5,7 @@
 <body>
 
     <div>
-        <livewire:event-edit />
+        <livewire:event-display :event="null" :guest="null" :user="null" />
         @livewireScripts
         @livewireStyles
 

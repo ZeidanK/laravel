@@ -13,10 +13,17 @@
     <header>
 
     </header>
-    <div>
-        Hello
-    </div>
+    @if(!auth()->check())
+
+        <livewire:event-example :event='null' />
+        @elseif(auth()->check())
+        <livewire:event-edit :event='null' />
+    @endif
+        @livewireStyles
+        @livewireScripts
+
 </body>
 </html>
 
 @endsection
+
