@@ -65,8 +65,8 @@ class EventDisplay extends Component
         //dd($this->event);
     }
 
-    public function render()
-    {
-        return view('livewire.event-display', ['eventId' => $this->eventId]);
-    }
+    // public function render()
+    // {
+    //     return view('livewire.event-display', ['eventId' => $this->eventId]);
+    // }
 }
