@@ -37,7 +37,7 @@ Route::get('/dashboard/landingpage', [DashboardController::class, 'showLandingPa
 
 
 
-Route::post('/login', [AuthController::class, 'showlogin']);
+Route::post('/login', [AuthController::class, 'login']);
 
 Route::get('/', [AuthController::class, 'showLogin']);
 
@@ -53,7 +53,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/register', [AuthController::class, 'register'])->name('register');
 
-Route::get('login', [AuthController::class, 'index'])->name('login');
+Route::get('login', [AuthController::class, 'login'])->name('login');
 Route::post('post-login', [AuthController::class, 'postLogin'])->name('login.post');
 Route::get('registration', [AuthController::class, 'registration'])->name('register');
 Route::post('post-registration', [AuthController::class, 'postRegistration'])->name('register.post');

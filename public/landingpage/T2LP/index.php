@@ -11,16 +11,16 @@
     <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
     <meta name="generator" content="Nicepage 6.17.0, nicepage.com">
     <meta name="referrer" content="origin">
-    
+
     <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Brygada+1918:400,400i,500,500i,600,600i,700,700i">
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
     <script type="application/ld+json">{
 		"@context": "http://schema.org",
 		"@type": "Organization",
@@ -40,21 +40,30 @@
             <svg class="u-svg-content" version="1.1" id="menu-hamburger" viewBox="0 0 16 16" x="0px" y="0px" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg"><g><rect y="1" width="16" height="2"></rect><rect y="7" width="16" height="2"></rect><rect y="13" width="16" height="2"></rect>
 </g></svg>
           </a>
-        </div>
+        </div><?php   ?>
+
         <div class="u-custom-menu u-nav-container">
-          <ul class="u-nav u-spacing-0 u-unstyled u-nav-1"><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-grey-40 u-text-custom-color-2 u-text-hover-grey-40" href="./" style="padding: 1px 24px;">الرئيسية</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-grey-40 u-text-custom-color-2 u-text-hover-grey-40" href="About.html" style="padding: 1px 24px;">تعرَف علينا</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-grey-40 u-text-custom-color-2 u-text-hover-grey-40" href="Contact.html" style="padding: 1px 24px;">تواصل معنا</a>
-</li></ul>
+          <ul class="u-nav u-spacing-0 u-unstyled u-nav-1">
+            <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-grey-40 u-text-custom-color-2 u-text-hover-grey-40" href="./" style="padding: 1px 24px;">الرئيسية</a></li>
+            <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-grey-40 u-text-custom-color-2 u-text-hover-grey-40" href="About.html" style="padding: 1px 24px;">تعرَف علينا</a></li>
+            <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-grey-40 u-text-custom-color-2 u-text-hover-grey-40" href="https://da3wah.com/dashboard/contactus" style="padding: 1px 24px;">تواصل معنا</a></li>
+            <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-grey-40 u-text-custom-color-2 u-text-hover-grey-40" href="https://da3wah.com/dashboard/welcomedash" style="padding: 1px 24px;">مثال الحدث</a></li>
+          </ul>
         </div>
         <div class="u-custom-menu u-nav-container-collapse">
           <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
             <div class="u-inner-container-layout u-sidenav-overflow">
               <div class="u-menu-close"></div>
-              <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"><li class="u-nav-item"><a class="u-button-style u-nav-link" href="./">الرئيسية</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="About.html">تعرَف علينا</a>
-</li><li class="u-nav-item"><a class="u-button-style u-nav-link" href="Contact.html">تواصل معنا</a>
-</li></ul>
+              <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+            <li class="u-nav-item"><a class="u-button-style u-nav-link" href="./">الرئيسية</a></li>
+            <li class="u-nav-item"><a class="u-button-style u-nav-link" href="About.html">تعرَف علينا</a></li>
+            <li class="u-nav-item"><a class="u-button-style u-nav-link" href="https://da3wah.com/dashboard/contactus">تواصل معنا</a></li>
+            <li class="u-nav-item"><a class="u-button-style u-nav-link" href="https://da3wah.com/dashboard/welcomedash">مثال الحدث</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+        </div>
             </div>
           </div>
           <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
@@ -306,7 +315,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                   <div class="u-container-style u-layout-cell u-left-cell u-size-60 u-layout-cell-1">
                     <div class="u-container-layout u-container-layout-1">
                       <h2 class="u-align-right u-text u-text-1" spellcheck="false">تواصل معنا </h2>
-                      <p class="u-align-right u-text u-text-2" spellcheck="true">المكان: مدينة الطيبة<br>رقم الهاتف: 0712344321<br>البريد الالكتروني: da3wahbusiness@gmail.com 
+                      <p class="u-align-right u-text u-text-2" spellcheck="true">المكان: مدينة الطيبة<br>رقم الهاتف: 0712344321<br>البريد الالكتروني: da3wahbusiness@gmail.com
                       </p>
                       <div class="u-align-right u-social-icons u-spacing-10 u-social-icons-1">
                         <a class="u-social-url" target="_blank" href=""><span class="u-icon u-social-facebook u-social-icon u-text-black u-icon-1"><svg class="u-svg-link" preserveAspectRatio="xMidYMin slice" viewBox="0 0 800 800" style=""><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#svg-8160"></use></svg><svg class="u-svg-content" viewBox="0 0 800 800" x="0px" y="0px" id="svg-8160" style="enable-background:new 0 0 800 800;"><g><path style="fill:currentColor;" d="M286,154.4c0-5,0.7-15.8,2.1-32.2c1.5-16.5,7.7-33.8,18.9-51.9C318,52.1,336,35.9,361,21.5
@@ -344,7 +353,7 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                 <div class="u-layout-col">
                   <div class="u-container-style u-layout-cell u-right-cell u-size-60 u-layout-cell-2">
                     <div class="u-container-layout u-container-layout-2">
-                      <div class="ContactForm custom-expanded u-expanded-width u-form u-form-1">
+                      <!-- <div class="ContactForm custom-expanded u-expanded-width u-form u-form-1">
                         <form action="https://forms.nicepagesrv.com/v2/form/process" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="email" name="form" style="padding: 0px;">
                           <div class="u-form-group u-form-name u-label-none">
                             <label for="name-fb78" class="u-label">Name</label>
@@ -371,7 +380,12 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
                           <input type="hidden" value="" name="recaptchaResponse">
                           <input type="hidden" name="formServices" value="">
                         </form>
-                      </div>
+                      </div> -->
+                      <livewire:contact-request />
+                      @livewireScripts
+                      @livewireStyles
+
+
                     </div>
                   </div>
                 </div>
@@ -384,12 +398,12 @@ c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,24
     <style class="u-overlap-style">.u-overlap:not(.u-sticky-scroll) .u-header {
 background-color: #f3f4e7 !important
 }</style>
-    
-    
-    
+
+
+
     <footer class="u-align-center u-clearfix u-container-align-center u-custom-color-2 u-footer u-footer" id="sec-030a"><div class="u-clearfix u-sheet u-sheet-1">
         <p class="u-align-center u-small-text u-text u-text-variant u-text-1" spellcheck="true">يمكنك متابعتنا عبر صفحاتنا على مواقع التواصل الإجتماعي </p><span class="u-file-icon u-icon u-icon-1"><img src="images/174855.png" alt=""></span><span class="u-file-icon u-icon u-icon-2"><img src="images/733547.png" alt=""></span><span class="u-file-icon u-icon u-icon-3"><img src="images/3536505.png" alt=""></span>
       </div></footer>
 
-  
+
 </body></html>

@@ -35,7 +35,7 @@ return new class extends Migration
             //$table->index(['guest_slug', 'event_id']);
             $table->index(['user_id', 'event_id']);
             $table->timestamps();
-
+            $table->boolean('has_error')->default(false);
             // Foreign key definition
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

@@ -58,11 +58,25 @@ class GuestTableEdit extends Component
 
     public function loadGuests()
     {
-        if($this->isAdmin){
-            if($this->selectedEvent==null){
-                $this->selectedEvent=$this->event->id;
+        if ($this->isAdmin) {
+            if ($this->selectedEvent == null && $this->selectedUser != null) {
+                $this->guests = Guest::where('user_id', $this->selectedUser)
+                    ->where('event_id', 1)
+                    ->where(function ($query) {
+                        $query->where('first_name', 'like', '%' . $this->search . '%')
+                            ->orWhere('last_name', 'like', '%' . $this->search . '%')
+                            ->orWhere('phone_number', 'like', '%' . $this->search . '%');
+                    })
+                    ->orderBy($this->sortField, $this->sortDirection)
+                    ->get();
+                return;
             }
-            $this->event=Event::find($this->selectedEvent);
+
+            if ($this->selectedEvent == null) {
+                $this->selectedEvent = $this->event->id;
+            }
+
+            $this->event = Event::find($this->selectedEvent);
             $this->guests = Guest::where('event_id', $this->event->id)
                 ->where(function ($query) {
                     $query->where('first_name', 'like', '%' . $this->search . '%')
@@ -72,16 +86,16 @@ class GuestTableEdit extends Component
                 ->orderBy($this->sortField, $this->sortDirection)
                 ->get();
             return;
-        }else{
-        $this->guests = Guest::where('user_id', operator: Auth::id())
-            ->where('event_id', $this->event->id)
-            ->where(function ($query) {
-                $query->where('first_name', 'like', '%' . $this->search . '%')
-                    ->orWhere('last_name', 'like', '%' . $this->search . '%')
-                    ->orWhere('phone_number', 'like', '%' . $this->search . '%');
-            })
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->get();
+        } else {
+            $this->guests = Guest::where('user_id', Auth::id())
+                ->where('event_id', $this->event->id)
+                ->where(function ($query) {
+                    $query->where('first_name', 'like', '%' . $this->search . '%')
+                        ->orWhere('last_name', 'like', '%' . $this->search . '%')
+                        ->orWhere('phone_number', 'like', '%' . $this->search . '%');
+                })
+                ->orderBy($this->sortField, $this->sortDirection)
+                ->get();
         }
     }
 
@@ -115,7 +129,7 @@ class GuestTableEdit extends Component
             'editingGuest.last_name' => 'required|string|max:255',
             'editingGuest.phone_number' => 'required|string|max:15',
         ]);
-
+        $this->editingGuest->has_error=$this->editingGuest->checkError();
         $this->editingGuest->save();
         $this->loadGuests();
         $this->isEditing = false;
@@ -142,6 +156,8 @@ class GuestTableEdit extends Component
         $guest->phone_number = $this->newGuest['phone_number'];
         $guest->event_id = $this->event->id;
         $guest->user_id = Auth::id();
+
+        $guest->has_error=$guest->checkError();
         $guest->save();
         $this->loadGuests();
         $this->isAdding = false;
@@ -166,6 +182,7 @@ class GuestTableEdit extends Component
 
     public function updateEvent()
     {
+
         // Implement the logic to update the event based on selected user and event
         // For example:
         if ($this->selectedUser && $this->selectedEvent) {

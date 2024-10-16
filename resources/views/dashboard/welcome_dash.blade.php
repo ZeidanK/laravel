@@ -14,7 +14,16 @@
         <h1>Main Header</h1>
     </header>
     <div>
+        @if(auth()->check())
+            @if(Auth::user()->role == 'admin')
+
+                <livewire:admin-dashboard />
+            @endif
+            <livewire:user-dashboard />
+        @endif
+
         Hello
+        @livewirestyles
     </div>
 </body>
 </html>

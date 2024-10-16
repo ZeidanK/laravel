@@ -38,7 +38,7 @@ class DashboardController extends Controller
     }
     public function showLandingPage(){
         // return view('landingpage.T2LP.index');
-        return redirect('/landingpage/T2LP/index.html');
+        return redirect('/landingpage/T2LP/index.php');
     }
 
 
